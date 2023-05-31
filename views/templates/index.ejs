@@ -1,0 +1,21 @@
+<h2>Search Templates</h2>
+<form action="/templates" method="GET">
+    <div>
+        <label>Title</label>
+        <input type="text" name="title" value="<%= searchOptions.title %>">
+    </div>
+    <div>
+        <label>Created After</label>
+        <input type="date" name="createdAfter" value="<%= searchOptions.createdAfter %>">
+    </div>
+    <div>
+        <label>Created Before</label>
+        <input type="date" name="createdBefore" value="<%= searchOptions.createdBefore %>">
+    </div>
+    <div>
+        <% templates.forEach(template => { %>
+            <img height="100" width="150" src="<%= template.coverImagePath %>" alt="">
+        <% })  %>
+    </div>
+    <button type="submit">Search</button>
+</form>
