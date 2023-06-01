@@ -1,12 +1,16 @@
 <h2>Recently Added Ideas</h2>
 <div>
     <% ideas.forEach(idea => { %>
+        <a href="/ideas/<%= idea.id %>">
         <div><%= idea.title %></div>
+    </a>
     <% }) %>
 </div>
 <h2>Recently Added Templates</h2>
 <div>
     <% templates.forEach(template => { %>
-        <img height="100" width="150" src="<%= template.coverImagePath %>" alt="">
+        <a href="/templates/<%= template.id %>">
+        <img height="100" width="150" src="<%= template.coverImagePath %>">
+    </a>
     <% })  %>
 </div>

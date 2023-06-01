@@ -14,7 +14,9 @@
     </div>
     <div>
         <% templates.forEach(template => { %>
-            <img height="100" width="150" src="<%= template.coverImagePath %>" alt="">
+            <a href="/templates/<%= template.id %>">
+                <img height="100" width="150" src="<%= template.coverImagePath %>">
+            </a>
         <% })  %>
     </div>
     <button type="submit">Search</button>

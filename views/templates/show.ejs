@@ -1,0 +1,8 @@
+<h2><%= template.title %></h2>
+<img src="<%= template.coverImagePath %>">
+<div><%= template.description %></div>
+<div>Created: <%= template.createdAt.toDateString() %></div>
+<div>Last Updated: <%= template.lastUpdated.toDateString() %></div>
+
+<a href="/templates/<%= template.id %>/edit">Edit</a>
+<%- include('../partials/deleteForm', { url: `/templates/${template.id}` }) %>

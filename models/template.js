@@ -20,6 +20,11 @@ const templateSchema = new mongoose.Schema({
     coverImageType: {
         type: String,
         required: true
+    },
+    lastUpdated: {
+        type: Date,
+        required: true,
+        default: Date.now
     }
     // idea: {
     //     type: mongoose.Schema.Types.ObjectId,
