@@ -1,10 +1,13 @@
 <h2>Search Ideas</h2>
 <form action="/ideas" method="GET">
-    <label>Ttile</label>
+    <label>Title</label>
     <input type="text" name="title" value="<%= searchOptions.title %>">
     <button type="submit">Search</button>
 </form>
 <br>
 <% ideas.forEach(idea => { %>
     <div><%= idea.title %></div>
+    <a href="/ideas/<%= idea.id %>">View</a>
+    <a href="/ideas/<%= idea.id %>/edit">Edit</a>
+    <%- include('../partials/deleteForm', { url: `/ideas/${idea.id}` }) %>
 <% }) %>

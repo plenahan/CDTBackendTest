@@ -21,10 +21,9 @@ const templateSchema = new mongoose.Schema({
         type: String,
         required: true
     }
-    // author: {
+    // idea: {
     //     type: mongoose.Schema.Types.ObjectId,
-    //     required: true,
-    //     ref: 'Author'
+    //     ref: 'Idea'
     // }
 })
 templateSchema.virtual('coverImagePath').get(function(){

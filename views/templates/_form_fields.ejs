@@ -3,17 +3,17 @@
     <input type="text" name="title" value="<%= template.title %>">
 </div>
 <!-- <div>
-    <label>Author</label>
-    <select name="author">
-    < authors.forEach(author => { %>
-        < if(author.id === book.author) { %>
-            <option selected label="<= author.name %>" value="<= author.id %>">
-        < } else { %>
-            <option label="<= author.name %>" value="<= author.id %>">
-        < } %>
+    <label>Idea</label>
+    <select name="idea">
+    < ideas.forEach(idea => { %>
+      < if (idea.id === template.idea) { %>
+        <option selected label="<= idea.title %>" value="<= idea.id %>">
+      < } else { %>
+        <option label="<= idea.title %>" value="<= idea.id %>">
+      < } %>
     < }) %>
     </select>
-</div> -->
+  </div> -->
 <!-- <div>
     <label>Publish Date</label>
     <input type="date" name="publishDate" 

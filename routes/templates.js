@@ -38,6 +38,7 @@ router.post('/', async (req, res) => {
     const template = new Template({
         title: req.body.title,
         description: req.body.description
+        // idea: req.body.idea
     })
     saveCover(template, req.body.cover)
 

@@ -1,4 +1,10 @@
-<h2>Recently Added</h2>
+<h2>Recently Added Ideas</h2>
+<div>
+    <% ideas.forEach(idea => { %>
+        <div><%= idea.title %></div>
+    <% }) %>
+</div>
+<h2>Recently Added Templates</h2>
 <div>
     <% templates.forEach(template => { %>
         <img height="100" width="150" src="<%= template.coverImagePath %>" alt="">
