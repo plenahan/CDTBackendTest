@@ -1,6 +1,4 @@
 const mongoose = require('mongoose')
-const path = require('path')
-const imageBasePath = 'uploads/templateCovers'
 
 const templateSchema = new mongoose.Schema({
     title: {
@@ -15,10 +13,14 @@ const templateSchema = new mongoose.Schema({
         required: true,
         default: Date.now
     },
-    coverImageName: {
-        type: String,
+    coverImage: {
+        type: Buffer,
         required: true
     },
+    coverImageType: {
+        type: String,
+        required: true
+    }
     // author: {
     //     type: mongoose.Schema.Types.ObjectId,
     //     required: true,
@@ -26,10 +28,9 @@ const templateSchema = new mongoose.Schema({
     // }
 })
 templateSchema.virtual('coverImagePath').get(function(){
-    if(this.coverImageName != null) {
-        return path.join('/', imageBasePath, this.coverImageName)
+    if(this.coverImage != null && this.coverImageType != null) {
+        return `data:${this.coverImageType};charset=utf-8;base64,${this.coverImage.toString('base64')}`
     }
 })
 
 module.exports = mongoose.model('Template', templateSchema)
-module.exports.imageBasePath = imageBasePath
