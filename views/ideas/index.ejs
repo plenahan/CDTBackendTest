@@ -1,4 +1,4 @@
-<h2>Search Ideas</h2>
+<h2 class="page-header">Search Ideas</h2>
 <form action="/ideas" method="GET">
     <label>Title</label>
     <input type="text" name="title" value="<%= searchOptions.title %>">
@@ -7,7 +7,9 @@
 <br>
 <% ideas.forEach(idea => { %>
     <div><%= idea.title %></div>
-    <a href="/ideas/<%= idea.id %>">View</a>
-    <a href="/ideas/<%= idea.id %>/edit">Edit</a>
-    <%- include('../partials/deleteForm', { url: `/ideas/${idea.id}` }) %>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/ideas/<%= idea.id %>">View</a>
+        <a class="btn btn-primary" href="/ideas/<%= idea.id %>/edit">Edit</a>
+        <%- include('../partials/deleteForm', { url: `/ideas/${idea.id}` }) %>
+    </div>
 <% }) %>
