@@ -1,0 +1,9 @@
+<%- include('../test') %>
+<h2 class="page-header">Edit Test Note</h2>
+<form action="/types/<%= testNote.id %>?_method=PUT" method="POST">
+    <%- include('_form_fields') %>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/testnotes/<%= testNote.id %>">Cancel</a>
+        <button class="btn btn-primary" type="submit">Update</button>
+    </div>
+</form>

@@ -1,0 +1,9 @@
+<%- include('../prototype') %>
+<h2 class="page-header">Edit Type</h2>
+<form action="/types/<%= type.id %>?_method=PUT" method="POST">
+    <%- include('_form_fields') %>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/types/<%= type.id %>">Cancel</a>
+        <button class="btn btn-primary" type="submit">Update</button>
+    </div>
+</form>

@@ -1,0 +1,8 @@
+<%- include('../test') %>
+<h2 class="page-header"><%= testNote.title %></h2>
+<div><%= testNote.description %></div>
+<div>Prototype Connected: <%= testNote.prototypeConnected.title %></div>
+<div class="btn-row">
+    <a class="btn btn-primary" href="/testnotes/<%= testNote.id %>/edit">Edit</a>
+    <%- include('../../partials/deleteForm', { url: `/testnotes/${testNote.id}` }) %>
+</div>

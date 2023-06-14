@@ -1,0 +1,16 @@
+<%- include('../define') %>
+<h2 class="page-header">Search POV Statements</h2>
+<form action="/povstatements" method="GET">
+    <label>Statement</label>
+    <input type="text" name="statement" value="<%= searchOptions.statement %>">
+    <button class="btn btn-primary" type="submit">Search</button>
+</form>
+<br>
+<% povstatement.forEach(povstatement => { %>
+    <div><%= povstatement.statement %></div>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/povstatements/<%= povstatement.id %>">View</a>
+        <a class="btn btn-primary" href="/povstatements/<%= povstatement.id %>/edit">Edit</a>
+        <%- include('../../partials/deleteForm', { url: `/povstatements/${povstatement.id}` }) %>
+    </div>
+<% }) %>

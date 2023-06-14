@@ -1,0 +1,16 @@
+<%- include('../ideate') %>
+<h2 class="page-header">Search Resources</h2>
+<form action="/links" method="GET">
+    <label>Title</label>
+    <input type="text" name="title" value="<%= searchOptions.title %>">
+    <button type="submit">Search</button>
+</form>
+<br>
+<% links.forEach(link => { %>
+    <div><%= link.title %></div>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/links/<%= link.id %>">View</a>
+        <a class="btn btn-primary" href="/links/<%= link.id %>/edit">Edit</a>
+        <%- include('../../partials/deleteForm', { url: `/links/${link.id}` }) %>
+    </div>
+<% }) %>

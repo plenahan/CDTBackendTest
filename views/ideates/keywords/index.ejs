@@ -1,0 +1,16 @@
+<%- include('../ideate') %>
+<h2 class="page-header">Search Keywords</h2>
+<form action="/keywords" method="GET">
+    <label>Word</label>
+    <input type="text" name="word" value="<%= searchOptions.word %>">
+    <button class="btn btn-primary" type="submit">Search</button>
+</form>
+<br>
+<% keywords.forEach(keyword => { %>
+    <div><%= keyword.word %></div>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/keywords/<%= keyword.id %>">View</a>
+        <a class="btn btn-primary" href="/keywords/<%= keyword.id %>/edit">Edit</a>
+        <%- include('../../partials/deleteForm', { url: `/keywords/${keyword.id}` }) %>
+    </div>
+<% }) %>

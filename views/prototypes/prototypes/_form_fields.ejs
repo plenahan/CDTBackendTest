@@ -1,0 +1,50 @@
+<div>
+    <label>Title</label>
+    <input type="text" name="title" value="<%= prototype.title %>">
+</div>
+<div>
+    <label>Type</label>
+    <select name="type">
+    <% types.forEach(type => { %>
+      <% if (type.id == prototype.type) { %>
+        <option selected label="<%= type.title %>" value="<%= type.id %>">
+      <% } else { %>
+        <option label="<%= type.title %>" value="<%= type.id %>">
+      <% } %>
+    <% }) %>
+    </select>
+  </div>
+<!-- <div>
+    <label>Publish Date</label>
+    <input type="date" name="publishDate" 
+        value="<= book.publishDate == null ? '' : 
+        book.publishDate.toISOString().split('T') %>">
+</div> -->
+<!-- <div>
+    <label>Page Count</label>
+    <input type="number" name="pageCount" min="1" value="<= book.pageCount %>">
+</div> -->
+<div>
+  <label>Description</label>
+  <textarea name="description"><%= prototype.description %></textarea>
+</div>
+<div>
+  <label>Purpose</label>
+  <textarea name="purpose"><%= prototype.purpose %></textarea>
+</div>
+<div>
+  <label>Priority</label>
+  <input type="number" name="priority" min="1" max="10" value="<%= prototype.priority %>">
+</div>
+<div>
+    <label>Cover</label>
+    <input type="file" name="cover" class="filepond">
+</div>
+<!-- <div>
+  <label>Keywords</label>
+  <input type="checkbox" name="keywords[]" value="1">
+  <input type="checkbox" name="keywords[]" value="2">
+  <input type="checkbox" name="keywords[]" value="3">
+  <input type="checkbox" name="keywords[]" value="4">
+  <input type="checkbox" name="keywords[]" value="5">
+</div> -->

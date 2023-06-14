@@ -1,0 +1,16 @@
+<%- include('../empathize') %>
+<h2 class="page-header">Search Notes</h2>
+<form action="/empathizenotes" method="GET">
+    <label>Title</label>
+    <input type="text" name="title" value="<%= searchOptions.title %>">
+    <button class="btn btn-primary" type="submit">Search</button>
+</form>
+<br>
+<% empathizeNote.forEach(empathizeNote => { %>
+    <div><%= empathizeNote.title %></div>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/empathizenotes/<%= empathizeNote.id %>">View</a>
+        <a class="btn btn-primary" href="/empathizenotes/<%= empathizeNote.id %>/edit">Edit</a>
+        <%- include('../../partials/deleteForm', { url: `/empathizenotes/${empathizeNote.id}` }) %>
+    </div>
+<% }) %>

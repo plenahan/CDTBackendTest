@@ -1,0 +1,16 @@
+<%- include('../prototype') %>
+<h2 class="page-header">Search Types</h2>
+<form action="/types" method="GET">
+    <label>Type</label>
+    <input type="text" name="title" value="<%= searchOptions.title %>">
+    <button class="btn btn-primary" type="submit">Search</button>
+</form>
+<br>
+<% types.forEach(type => { %>
+    <div><%= type.title %></div>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/types/<%= type.id %>">View</a>
+        <a class="btn btn-primary" href="/types/<%= type.id %>/edit">Edit</a>
+        <%- include('../../partials/deleteForm', { url: `/types/${type.id}` }) %>
+    </div>
+<% }) %>

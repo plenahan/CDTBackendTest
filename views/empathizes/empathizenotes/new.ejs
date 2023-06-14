@@ -1,0 +1,9 @@
+<%- include('../empathize') %>
+<h2 class="page-header">New Note</h2>
+<form action="/empathizenotes" method="POST">
+    <%- include('_form_fields') %>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/empathizenotes">Cancel</a>
+        <button class="btn btn-primary" type="submit">Create</button>
+    </div>
+</form>

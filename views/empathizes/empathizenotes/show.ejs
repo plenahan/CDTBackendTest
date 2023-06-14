@@ -1,0 +1,7 @@
+<%- include('../empathize') %>
+<h2 class="page-header"><%= empathizeNote.title %></h2>
+<div><%= empathizeNote.description %></div>
+<div class="btn-row">
+    <a class="btn btn-primary" href="/empathizenotes/<%= empathizeNote.id %>/edit">Edit</a>
+    <%- include('../../partials/deleteForm', { url: `/empathizenotes/${empathizeNote.id}` }) %>
+</div>

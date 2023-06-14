@@ -1,0 +1,14 @@
+<%- include('../prototype') %>
+<h2 class="page-header"><%= type.title %></h2>
+<div class="btn-row">
+    <a class="btn btn-primary" href="/types/<%= type.id %>/edit">Edit</a>
+    <%- include('../../partials/deleteForm', { url: `/types/${type.id}` }) %>
+</div>
+<% if (prototypesByType.length > 0) { %>
+    <h2>Prototypes</h2>
+    <% prototypesByType.forEach(prototype => { %>
+        <a href="/prototypes/<%= prototype.id %>">
+            <img height="150" width="150" src="<%= prototype.coverImagePath %>">
+        </a>
+    <% }) %>
+<% } %>

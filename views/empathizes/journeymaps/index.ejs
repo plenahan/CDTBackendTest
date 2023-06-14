@@ -1,0 +1,24 @@
+<%- include('../empathize') %>
+<h2 class="page-header">Search Journey Maps</h2>
+<form action="/journeymaps" method="GET">
+    <div>
+        <label>Title</label>
+        <input type="text" name="title" value="<%= searchOptions.title %>">
+    </div>
+    <div>
+        <label>Created After</label>
+        <input type="date" name="createdAfter" value="<%= searchOptions.createdAfter %>">
+    </div>
+    <div>
+        <label>Created Before</label>
+        <input type="date" name="createdBefore" value="<%= searchOptions.createdBefore %>">
+    </div>
+    <div>
+        <% journeyMaps.forEach(journeyMap => { %>
+            <a href="/journeymaps/<%= journeyMap.id %>">
+                <img height="150" width="150" src="<%= journeyMap.coverImagePath %>">
+            </a>
+        <% })  %>
+    </div>
+    <button class="btn btn-primary" type="submit">Search</button>
+</form>

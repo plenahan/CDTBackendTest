@@ -1,0 +1,58 @@
+<div>
+    <label>Title</label>
+    <input type="text" name="title" value="<%= postIt.title %>">
+</div>
+<div>
+    <label>Keyword</label>
+    <select name="keyword">
+    <% keywords.forEach(keyword => { %>
+      <% if (keyword.id == postIt.keyword) { %>
+        <option selected label="<%= keyword.word %>" value="<%= keyword.id %>">
+      <% } else { %>
+        <option label="<%= keyword.word %>" value="<%= keyword.id %>">
+      <% } %>
+    <% }) %>
+    </select>
+  </div>
+<!-- <div>
+    <label>Publish Date</label>
+    <input type="date" name="publishDate" 
+        value="<= book.publishDate == null ? '' : 
+        book.publishDate.toISOString().split('T') %>">
+</div> -->
+<!-- <div>
+    <label>Page Count</label>
+    <input type="number" name="pageCount" min="1" value="<= book.pageCount %>">
+</div> -->
+<div>
+  <label>Description</label>
+  <textarea name="description"><%= postIt.description %></textarea>
+</div>
+<div>
+    <label>Cover</label>
+    <input type="file" name="cover" class="filepond">
+</div>
+<!-- <div>
+  <label>Keywords</label>
+  <input type="checkbox" name="keywords[]" value="1">
+  <input type="checkbox" name="keywords[]" value="2">
+  <input type="checkbox" name="keywords[]" value="3">
+  <input type="checkbox" name="keywords[]" value="4">
+  <input type="checkbox" name="keywords[]" value="5">
+</div> -->
+<div>
+  <label>Idea From</label>
+  <textarea name="ideaFrom"><%= postIt.ideaFrom %></textarea>
+</div>
+<div>
+  <label>Priority</label>
+  <input type="number" name="priority" min="1" max="10" value="<%= postIt.priority %>">
+</div>
+<div>
+  <label>Prototype Connected</label>
+  <input type="text" name="prototypeConnected" value="<%= postIt.prototypeConnected %>">
+</div>
+<div>
+  <label>Need Connected</label>
+  <input type="text" name="needConnected" value="<%= postIt.needConnected %>">
+</div>

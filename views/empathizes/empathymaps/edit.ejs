@@ -1,0 +1,9 @@
+<%- include('../empathize') %>
+<h2 class="page-header">Edit Empathy Map</h2>
+<form action="/empathymaps/<%= empathyMap.id %>?_method=PUT" method="POST">
+    <%- include('_form_fields') %>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/empathymaps">Cancel</a>
+        <button class="btn btn-primary" type="submit">Update</button>
+    </div>
+</form>

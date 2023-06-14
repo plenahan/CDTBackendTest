@@ -1,0 +1,16 @@
+<%- include('../test') %>
+<h2 class="page-header">Search Test Notes</h2>
+<form action="/testnotes" method="GET">
+    <label>Title</label>
+    <input type="text" name="title" value="<%= searchOptions.title %>">
+    <button class="btn btn-primary" type="submit">Search</button>
+</form>
+<br>
+<% testNotes.forEach(testNote => { %>
+    <div><%= testNote.title %></div>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/testnotes/<%= testNote.id %>">View</a>
+        <a class="btn btn-primary" href="/testnotes/<%= testNote.id %>/edit">Edit</a>
+        <%- include('../../partials/deleteForm', { url: `/testNotes/${testNote.id}` }) %>
+    </div>
+<% }) %>

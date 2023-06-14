@@ -1,0 +1,9 @@
+<%- include('../define') %>
+<h2 class="page-header">Edit POV Statement</h2>
+<form action="/povstatements/<%= povstatement.id %>?_method=PUT" method="POST">
+    <%- include('_form_fields') %>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/povstatements">Cancel</a>
+        <button class="btn btn-primary" type="submit">Update</button>
+    </div>
+</form>

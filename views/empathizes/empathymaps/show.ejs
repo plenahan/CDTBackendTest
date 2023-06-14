@@ -1,0 +1,9 @@
+<%- include('../empathize') %>
+<h2 class="page-header"><%= empathyMap.title %></h2>
+<img width="200z" src="<%= empathyMap.coverImagePath %>">
+<div><%= empathyMap.description %></div>
+<div>Created: <%= empathyMap.createdAt.toDateString() %></div>
+<div class="btn-row">
+    <a class="btn btn-primary" href="/empathymaps/<%= empathyMap.id %>/edit">Edit</a>
+    <%- include('../../partials/deleteForm', { url: `/empathymaps/${empathyMap.id}` }) %>
+</div>

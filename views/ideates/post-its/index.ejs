@@ -1,0 +1,36 @@
+<%- include('../ideate') %>
+<h2 class="page-header">Search Design Ideas</h2>
+<form action="/post-its" method="GET">
+    <div>
+        <label>Title</label>
+        <input type="text" name="title" value="<%= searchOptions.title %>">
+    </div>
+    <div>
+        <label>Created After</label>
+        <input type="date" name="createdAfter" value="<%= searchOptions.createdAfter %>">
+    </div>
+    <div>
+        <label>Created Before</label>
+        <input type="date" name="createdBefore" value="<%= searchOptions.createdBefore %>">
+    </div>
+    <!-- <div>
+        <label>Keyword</label>
+        <select name="keyword">
+        < keywords.forEach(keyword => { %>
+          < if (keyword.id == searchOptions.keyword) { %>
+            <option selected label="<= keyword.word %>" value="<= keyword.id %>">
+          < } else { %>
+            <option label="<= keyword.word %>" value="<= keyword.id %>">
+          < } %>
+        < }) %>
+        </select>
+      </div> -->
+    <div>
+        <% postIts.forEach(postIt => { %>
+            <a href="/post-its/<%= postIt.id %>">
+                <img height="150" width="150" src="<%= postIt.coverImagePath %>">
+            </a>
+        <% })  %>
+    </div>
+    <button class="btn btn-primary" type="submit">Search</button>
+</form>

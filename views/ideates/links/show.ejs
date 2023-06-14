@@ -1,0 +1,8 @@
+<%- include('../ideate') %>
+<h2 class="page-header"><%= link.title %></h2>
+<p><%= link.description %></p>
+<a href="<%= link.link %>"><%= link.link %></a>
+<div class="btn-row">
+    <a class="btn btn-primary" href="/links/<%= link.id %>/edit">Edit</a>
+    <%- include('../../partials/deleteForm', { url: `/links/${link.id}` }) %>
+</div>

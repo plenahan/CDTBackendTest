@@ -1,0 +1,9 @@
+<%- include('../prototype') %>
+<h2 class="page-header">New Prototype</h2>
+<form action="/prototypes" method="POST">
+    <%- include('_form_fields') %>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/prototypes">Cancel</a>
+        <button class="btn btn-primary" type="submit">Create</button>
+    </div>
+</form>

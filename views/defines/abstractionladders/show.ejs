@@ -1,0 +1,9 @@
+<%- include('../define') %>
+<h2 class="page-header"><%= abstractionLadder.title %></h2>
+<div><%= abstractionLadder.description %></div>
+<img width="200z" src="<%= abstractionLadder.coverImagePath %>">
+<div>Created: <%= abstractionLadder.createdAt.toDateString() %></div>
+<div class="btn-row">
+    <a class="btn btn-primary" href="/abstractionladders/<%= abstractionLadder.id %>/edit">Edit</a>
+    <%- include('../../partials/deleteForm', { url: `/abstractionladders/${abstractionLadder.id}` }) %>
+</div>

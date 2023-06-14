@@ -1,0 +1,24 @@
+<%- include('../define') %>
+<h2 class="page-header">Search Abstraction Ladders</h2>
+<form action="/abstractionladders" method="GET">
+    <div>
+        <label>Title</label>
+        <input type="text" name="title" value="<%= searchOptions.title %>">
+    </div>
+    <div>
+        <label>Created After</label>
+        <input type="date" name="createdAfter" value="<%= searchOptions.createdAfter %>">
+    </div>
+    <div>
+        <label>Created Before</label>
+        <input type="date" name="createdBefore" value="<%= searchOptions.createdBefore %>">
+    </div>
+    <div>
+        <% abstractionLadders.forEach(abstractionLadder => { %>
+            <a href="/abstractionladders/<%= abstractionLadder.id %>">
+                <img height="150" width="150" src="<%= abstractionLadder.coverImagePath %>">
+            </a>
+        <% })  %>
+    </div>
+    <button class="btn btn-primary" type="submit">Search</button>
+</form>

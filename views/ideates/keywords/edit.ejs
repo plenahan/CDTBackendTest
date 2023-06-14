@@ -1,0 +1,9 @@
+<%- include('../ideate') %>
+<h2 class="page-header">Edit Keyword</h2>
+<form action="/keywords/<%= keyword.id %>?_method=PUT" method="POST">
+    <%- include('_form_fields') %>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/keywords/<%= keyword.id %>">Cancel</a>
+        <button class="btn btn-primary" type="submit">Update</button>
+    </div>
+</form>

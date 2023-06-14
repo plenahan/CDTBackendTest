@@ -1,0 +1,9 @@
+<%- include('../ideate') %>
+<h2 class="page-header">New Keyword</h2>
+<form action="/keywords" method="POST">
+    <%- include('_form_fields') %>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/keywords">Cancel</a>
+        <button class="btn btn-primary" type="submit">Create</button>
+    </div>
+</form>

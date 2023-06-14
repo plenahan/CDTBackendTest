@@ -1,0 +1,12 @@
+<%- include('../prototype') %>
+<h2 class="page-header"><%= prototype.title %></h2>
+<div><%= prototype.description %></div>
+<img width="200z" src="<%= prototype.coverImagePath %>">
+<div>Created: <%= prototype.createdAt.toDateString() %></div>
+<div>Type: <%= prototype.type.title %></div>
+<div>Purpose: <%= prototype.purpose %></div>
+<div>Priority: <%= prototype.priority %></div>
+<div class="btn-row">
+    <a class="btn btn-primary" href="/prototypes/<%= prototype.id %>/edit">Edit</a>
+    <%- include('../../partials/deleteForm', { url: `/prototypes/${prototype.id}` }) %>
+</div>
