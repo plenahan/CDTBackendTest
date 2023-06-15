@@ -1,24 +1,48 @@
 const express = require('express')
 const router = express.Router()
 const POVStatement = require('../../models/define/povstatement')
-
+const PostIt = require('../../models/ideate/post-it')
+const SortBy = require('../../models/sortby')
 
 
 //All Ideas Route
 router.get('/', async (req, res) => {
-    let searchOptions = {}
-    if (req.query.title != null && req.query.title !== '') {
-        searchOptions.title = new RegExp(req.query.title, 'i')
+    const sortby = new SortBy({ title: req.query.SortBy })
+    let query = POVStatement.find({})
+    if (req.query.statement != null && req.query.statement != '') {
+        query = query.regex('statement', new RegExp(req.query.statement, 'i'))
     }
+    if (req.query.createdBefore != null && req.query.createdBefore != '') {
+        query = query.lte('createdAt', req.query.createdBefore)
+    }
+    if (req.query.createdAfter != null && req.query.createdAfter != '') {
+        query = query.gte('createdAt', req.query.createdAfter)
+    }
+    if(sortby.title == 'A2Z'){
+        query = query.sort( {statement: 'asc'} )
+    }
+    else if (sortby.title == 'Z2A'){
+        query = query.sort( {statement: 'desc'} )
+    }
+    else if (sortby.title == 'New2Old'){
+        query = query.sort( {createdAt: 'desc'} )
+    }
+    else {
+        query = query.sort( {createdAt: 'asc'} )
+    }
+    // if (req.query.keyword != null && req.query.keyword != '') {
+    //     query = query.regex('keyword', new RegExp(req.query.keyword, 'i'))
+    // }
     try {
-        const povstatement = await POVStatement.find(searchOptions)
-        res.render('defines/povstatements/index', { 
-            povstatement: povstatement, 
-            searchOptions: req.query })
+        const povstatements = await query.exec()
+        res.render('defines/povstatements/index', {
+            povstatement: povstatements,
+            SortBy: sortby,
+            searchOptions: req.query
+        })
     } catch {
         res.redirect('/')
-    }  
-    // res.render('ideates/notes/index')
+    }
 })
 
 //New Ideas Route
@@ -46,9 +70,10 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const povstatement = await POVStatement.findById(req.params.id)
-        // const templates = await templates.find({ idea: idea.id})
+        const postIts = await PostIt.find({ needConnected: povstatement.id}).limit(6).exec()
         res.render('defines/povstatements/show', {
-            povstatement: povstatement
+            povstatement: povstatement,
+            postItsByNeed: postIts
         })
     } catch {
         res.redirect('/')
@@ -58,6 +83,7 @@ router.get('/:id', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
     try {
         const povstatement = await POVStatement.findById(req.params.id)
+
         res.render('defines/povstatements/edit', { povstatement: povstatement })
     } catch {
         res.redirect('/povstatements')
@@ -89,11 +115,11 @@ router.delete('/:id', async (req, res) => {
     let povstatement
     try {
         povstatement = await POVStatement.findById(req.params.id)
-        await povstatement.deleteOne()
+        const response = await Type.deleteOne({ _id: req.params.id })
         res.redirect('/povstatements')
     } 
     catch {
-        if (povstatement == null) {
+        if (type == null) {
             res.redirect('/')
         } else{
             res.redirect(`/povstatements/${povstatement.id}`)

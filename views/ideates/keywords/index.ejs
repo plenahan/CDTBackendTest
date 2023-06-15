@@ -1,9 +1,16 @@
 <%- include('../ideate') %>
 <h2 class="page-header">Search Keywords</h2>
 <form action="/keywords" method="GET">
-    <label>Word</label>
-    <input type="text" name="word" value="<%= searchOptions.word %>">
-    <button class="btn btn-primary" type="submit">Search</button>
+    <div>
+        <label>Word</label>
+        <input type="text" name="word" value="<%= searchOptions.word %>">
+    </div>
+    <label>Sort By</label>
+    <select name="SortBy">
+        <% if(SortBy.title == 'A2Z') { %> <option selected label="A-Z" value="A2Z"></option> <% } else { %> <option label="A-Z" value="A2Z"></option> <% } %>
+        <% if(SortBy.title == 'Z2A') { %> <option selected label="Z-A" value="Z2A"></option> <% } else { %> <option label="Z-A" value="Z2A"></option> <% } %>
+    </select>
+    <div><button class="btn btn-primary" type="submit">Search</button></div>
 </form>
 <br>
 <% keywords.forEach(keyword => { %>

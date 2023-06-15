@@ -14,11 +14,20 @@
         <input type="date" name="createdBefore" value="<%= searchOptions.createdBefore %>">
     </div>
     <div>
-        <% journeyMaps.forEach(journeyMap => { %>
-            <a href="/journeymaps/<%= journeyMap.id %>">
-                <img height="150" width="150" src="<%= journeyMap.coverImagePath %>">
-            </a>
-        <% })  %>
+        <label>Sort By</label>
+        <select name="SortBy">
+            <% if(SortBy.title == 'A2Z') { %> <option selected label="A-Z" value="A2Z"></option> <% } else { %> <option label="A-Z" value="A2Z"></option> <% } %>
+            <% if(SortBy.title == 'Z2A') { %> <option selected label="Z-A" value="Z2A"></option> <% } else { %> <option label="Z-A" value="Z2A"></option> <% } %>
+            <% if(SortBy.title == 'New2Old') { %> <option selected label="Newest to Oldest" value="New2Old"></option> <% } else { %> <option label="Newest to Oldest" value="New2Old"></option> <%}%>
+            <% if(SortBy.title == 'Old2New') { %> <option selected label="Oldest to Newest" value="Old2New"></option> <% } else { %> <option label="Oldest to Newest" value="Old2New"></option> <%} %>
+        </select>
     </div>
     <button class="btn btn-primary" type="submit">Search</button>
 </form>
+<div>
+    <% journeyMaps.forEach(journeyMap => { %>
+        <a href="/journeymaps/<%= journeyMap.id %>">
+            <img height="150" width="150" src="<%= journeyMap.coverImagePath %>">
+        </a>
+    <% })  %>
+</div>

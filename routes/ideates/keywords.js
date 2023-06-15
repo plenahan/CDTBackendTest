@@ -2,24 +2,35 @@ const express = require('express')
 const router = express.Router()
 const Keyword = require('../../models/ideate/keyword')
 const PostIt = require('../../models/ideate/post-it')
-
+const SortBy = require('../../models/sortby')
 
 
 //All Ideas Route
 router.get('/', async (req, res) => {
-    let searchOptions = {}
-    if (req.query.word != null && req.query.word !== '') {
-        searchOptions.word = new RegExp(req.query.word, 'i')
+    const sortby = new SortBy({ title: req.query.SortBy })
+    let query = Keyword.find({})
+    if (req.query.word != null && req.query.word != '') {
+        query = query.regex('word', new RegExp(req.query.word, 'i'))
     }
+    if(sortby.title == 'A2Z'){
+        query = query.sort( {word: 'asc'} )
+    }
+    else if (sortby.title == 'Z2A'){
+        query = query.sort( {word: 'desc'} )
+    }
+    // if (req.query.keyword != null && req.query.keyword != '') {
+    //     query = query.regex('keyword', new RegExp(req.query.keyword, 'i'))
+    // }
     try {
-        const keywords = await Keyword.find(searchOptions)
-        res.render('ideates/keywords/index', { 
-            keywords: keywords, 
-            searchOptions: req.query })
+        const keywords = await query.exec()
+        res.render('ideates/keywords/index', {
+            keywords: keywords,
+            SortBy: sortby,
+            searchOptions: req.query
+        })
     } catch {
         res.redirect('/')
-    }  
-    // res.render('ideates/notes/index')
+    }
 })
 
 //New Ideas Route

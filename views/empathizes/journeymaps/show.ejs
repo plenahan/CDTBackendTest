@@ -1,7 +1,7 @@
 <%- include('../empathize') %>
 <h2 class="page-header"><%= journeyMap.title %></h2>
-<img width="200z" src="<%= journeyMap.coverImagePath %>">
 <div><%= journeyMap.description %></div>
+<img width="200z" src="<%= journeyMap.coverImagePath %>">
 <div>Created: <%= journeyMap.createdAt.toDateString() %></div>
 <div class="btn-row">
     <a class="btn btn-primary" href="/journeymaps/<%= journeyMap.id %>/edit">Edit</a>

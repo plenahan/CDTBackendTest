@@ -1,9 +1,26 @@
 <%- include('../empathize') %>
 <h2 class="page-header">Search Personas</h2>
 <form action="/personas" method="GET">
-    <label>Name</label>
-    <input type="text" name="title" value="<%= searchOptions.name %>">
-    <button class="btn btn-primary" type="submit">Search</button>
+    <div>
+        <label>Name</label>
+        <input type="text" name="title" value="<%= searchOptions.title %>">
+    </div>
+    <div>
+        <label>Created After</label>
+        <input type="date" name="createdAfter" value="<%= searchOptions.createdAfter %>">
+    </div>
+    <div>
+        <label>Created Before</label>
+        <input type="date" name="createdBefore" value="<%= searchOptions.createdBefore %>">
+    </div>
+    <label>Sort By</label>
+    <select name="SortBy">
+        <% if(SortBy.title == 'A2Z') { %> <option selected label="A-Z" value="A2Z"></option> <% } else { %> <option label="A-Z" value="A2Z"></option> <% } %>
+        <% if(SortBy.title == 'Z2A') { %> <option selected label="Z-A" value="Z2A"></option> <% } else { %> <option label="Z-A" value="Z2A"></option> <% } %>
+        <% if(SortBy.title == 'New2Old') { %> <option selected label="Newest to Oldest" value="New2Old"></option> <% } else { %> <option label="Newest to Oldest" value="New2Old"></option> <%}%>
+        <% if(SortBy.title == 'Old2New') { %> <option selected label="Oldest to Newest" value="Old2New"></option> <% } else { %> <option label="Oldest to Newest" value="Old2New"></option> <%} %>
+    </select>
+    <div><button class="btn btn-primary" type="submit">Search</button></div>
 </form>
 <br>
 <% personas.forEach(persona => { %>

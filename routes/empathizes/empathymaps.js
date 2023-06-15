@@ -1,12 +1,15 @@
 const express = require('express')
 const router = express.Router()
 const EmpathyMap = require('../../models/empathize/empathymap')
+const SortBy = require('../../models/sortby')
+
 // const Keyword = require('../../models/ideate/keyword')
 const { now } = require('mongoose')
 const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif']
 
 //All Templates Route
 router.get('/', async (req, res) => {
+    const sortby = new SortBy({ title: req.query.SortBy })
     let query = EmpathyMap.find({})
     if (req.query.title != null && req.query.title != '') {
         query = query.regex('title', new RegExp(req.query.title, 'i'))
@@ -17,6 +20,18 @@ router.get('/', async (req, res) => {
     if (req.query.createdAfter != null && req.query.createdAfter != '') {
         query = query.gte('createdAt', req.query.createdAfter)
     }
+    if(sortby.title == 'A2Z'){
+        query = query.sort( {title: 'asc'} )
+    }
+    else if (sortby.title == 'Z2A'){
+        query = query.sort( {title: 'desc'} )
+    }
+    else if (sortby.title == 'New2Old'){
+        query = query.sort( {createdAt: 'desc'} )
+    }
+    else {
+        query = query.sort( {createdAt: 'asc'} )
+    }
     // if (req.query.keyword != null && req.query.keyword != '') {
     //     query = query.regex('keyword', new RegExp(req.query.keyword, 'i'))
     // }
@@ -24,6 +39,7 @@ router.get('/', async (req, res) => {
         const empathyMaps = await query.exec()
         res.render('empathizes/empathymaps/index', {
             empathyMaps: empathyMaps,
+            SortBy: sortby,
             searchOptions: req.query
         })
     } catch {

@@ -1,13 +1,12 @@
 <%- include('../ideate') %>
 <h2 class="page-header"><%= postIt.title %></h2>
 <div><%= postIt.description %></div>
-<img width="200z" src="<%= postIt.coverImagePath %>">
-<div>Created: <%= postIt.createdAt.toDateString() %></div>
 <div>Keyword: <%= postIt.keyword.word %></div>
 <div>Idea From: <%= postIt.ideaFrom %></div>
-<div>Need Connected: <%= postIt.needConnected %></div>
-<div>Prototype Connected: <%= postIt.prototypeConnected %></div>
+<div>Need Connected: <%= postIt.needConnected.statement %></div>
+<div>Prototype Connected: <%= postIt.prototypeConnected.title %></div>
 <div>Priority: <%= postIt.priority %></div>
+<img width="200z" src="<%= postIt.coverImagePath %>">
 <div class="btn-row">
     <a class="btn btn-primary" href="/post-its/<%= postIt.id %>/edit">Edit</a>
     <%- include('../../partials/deleteForm', { url: `/post-its/${postIt.id}` }) %>

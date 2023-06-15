@@ -10,3 +10,19 @@
     <a class="btn btn-primary" href="/prototypes/<%= prototype.id %>/edit">Edit</a>
     <%- include('../../partials/deleteForm', { url: `/prototypes/${prototype.id}` }) %>
 </div>
+<% if (postItsByPrototype.length > 0) { %>
+    <h2>Design Ideas</h2>
+    <% postItsByPrototype.forEach(postIt => { %>
+        <a href="/post-its/<%= postIt.id %>">
+            <img height="150" width="150" src="<%= postIt.coverImagePath %>">
+        </a>
+    <% }) %>
+<% } %>
+<% if (testNotesByPrototype.length > 0) { %>
+    <h2>Test Notes</h2>
+    <% testNotesByPrototype.forEach(testNote => { %>
+        <a href="/testnotes/<%= testNote.id %>">
+            <div><%= testNote.title %></div>
+        </a>
+    <% }) %>
+<% } %>

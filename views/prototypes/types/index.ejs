@@ -1,9 +1,16 @@
 <%- include('../prototype') %>
 <h2 class="page-header">Search Types</h2>
 <form action="/types" method="GET">
-    <label>Type</label>
-    <input type="text" name="title" value="<%= searchOptions.title %>">
-    <button class="btn btn-primary" type="submit">Search</button>
+    <div>
+        <label>Title</label>
+        <input type="text" name="title" value="<%= searchOptions.title %>">
+    </div>
+    <label>Sort By</label>
+    <select name="SortBy">
+        <% if(SortBy.title == 'A2Z') { %> <option selected label="A-Z" value="A2Z"></option> <% } else { %> <option label="A-Z" value="A2Z"></option> <% } %>
+        <% if(SortBy.title == 'Z2A') { %> <option selected label="Z-A" value="Z2A"></option> <% } else { %> <option label="Z-A" value="Z2A"></option> <% } %>
+    </select>
+    <div><button class="btn btn-primary" type="submit">Search</button></div>
 </form>
 <br>
 <% types.forEach(type => { %>

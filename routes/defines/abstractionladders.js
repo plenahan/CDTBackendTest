@@ -1,12 +1,14 @@
 const express = require('express')
 const router = express.Router()
 const AbstractionLadder = require('../../models/define/abstractionladder')
+const SortBy = require('../../models/sortby')
 // const Keyword = require('../../models/ideate/keyword')
 const { now } = require('mongoose')
 const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif']
 
 //All Templates Route
 router.get('/', async (req, res) => {
+    const sortby = new SortBy({ title: req.query.SortBy })
     let query = AbstractionLadder.find({})
     if (req.query.title != null && req.query.title != '') {
         query = query.regex('title', new RegExp(req.query.title, 'i'))
@@ -17,13 +19,23 @@ router.get('/', async (req, res) => {
     if (req.query.createdAfter != null && req.query.createdAfter != '') {
         query = query.gte('createdAt', req.query.createdAfter)
     }
-    // if (req.query.keyword != null && req.query.keyword != '') {
-    //     query = query.regex('keyword', new RegExp(req.query.keyword, 'i'))
-    // }
+    if(sortby.title == 'A2Z'){
+        query = query.sort( {title: 'asc'} )
+    }
+    else if (sortby.title == 'Z2A'){
+        query = query.sort( {title: 'desc'} )
+    }
+    else if (sortby.title == 'New2Old'){
+        query = query.sort( {createdAt: 'desc'} )
+    }
+    else {
+        query = query.sort( {createdAt: 'asc'} )
+    }
     try {
         const abstractionLadders = await query.exec()
         res.render('defines/abstractionladders/index', {
             abstractionLadders: abstractionLadders,
+            SortBy: sortby,
             searchOptions: req.query
         })
     } catch {

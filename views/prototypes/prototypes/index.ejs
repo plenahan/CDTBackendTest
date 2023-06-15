@@ -1,36 +1,50 @@
 <%- include('../prototype') %>
 <h2 class="page-header">Search Prototypes</h2>
 <form action="/prototypes" method="GET">
+  <div>
+    <label>Title</label>
+    <input type="text" name="title" value="<%= searchOptions.title %>">
+</div>
+<div>
+    <label>Created After</label>
+    <input type="date" name="createdAfter" value="<%= searchOptions.createdAfter %>">
+</div>
+<div>
+    <label>Created Before</label>
+    <input type="date" name="createdBefore" value="<%= searchOptions.createdBefore %>">
+</div>
+<div>
+<label>Sort By</label>
+<select name="SortBy">
+    <% if(SortBy.title == 'A2Z') { %> <option selected label="A-Z" value="A2Z"></option> <% } else { %> <option label="A-Z" value="A2Z"></option> <% } %>
+    <% if(SortBy.title == 'Z2A') { %> <option selected label="Z-A" value="Z2A"></option> <% } else { %> <option label="Z-A" value="Z2A"></option> <% } %>
+    <% if(SortBy.title == 'New2Old') { %> <option selected label="Newest to Oldest" value="New2Old"></option> <% } else { %> <option label="Newest to Oldest" value="New2Old"></option> <%}%>
+    <% if(SortBy.title == 'Old2New') { %> <option selected label="Oldest to Newest" value="Old2New"></option> <% } else { %> <option label="Oldest to Newest" value="Old2New"></option> <%} %>
+    <% if(SortBy.title == 'HighPri') { %> <option selected label="Highest Priority" value="HighPri"></option> <% } else { %> <option label="Highest Priority" value="HighPri"></option> <%} %>
+    <% if(SortBy.title == 'LowPri') { %> <option selected label="Lowest Priority" value="LowPri"></option> <% } else { %> <option label="Lowest Priotiry" value="LowPri"></option> <%} %>
+</select>
+</div>
+
     <div>
-        <label>Title</label>
-        <input type="text" name="title" value="<%= searchOptions.title %>">
-    </div>
-    <div>
-        <label>Created After</label>
-        <input type="date" name="createdAfter" value="<%= searchOptions.createdAfter %>">
-    </div>
-    <div>
-        <label>Created Before</label>
-        <input type="date" name="createdBefore" value="<%= searchOptions.createdBefore %>">
-    </div>
-    <!-- <div>
-        <label>Keyword</label>
-        <select name="keyword">
-        < keywords.forEach(keyword => { %>
-          < if (keyword.id == searchOptions.keyword) { %>
-            <option selected label="<= keyword.word %>" value="<= keyword.id %>">
-          < } else { %>
-            <option label="<= keyword.word %>" value="<= keyword.id %>">
-          < } %>
-        < }) %>
+        <label>Type</label>
+        <select name="type">
+          <option label="None" value=""></option>
+        <% types.forEach(type => { %>
+          <% if (type.id == searchOptions.type) { %>
+            <option selected label="<%= type.title %>" value="<%= type.id %>">
+          <% } else { %>
+            <option label="<%= type.title %>" value="<%= type.id %>">
+          <% } %>
+        <% }) %>
         </select>
-      </div> -->
-    <div>
-        <% prototypes.forEach(prototype => { %>
-            <a href="/prototypes/<%= prototype.id %>">
-                <img height="150" width="150" src="<%= prototype.coverImagePath %>">
-            </a>
-        <% })  %>
-    </div>
-    <button class="btn btn-primary" type="submit">Search</button>
+      </div>
+      <button class="btn btn-primary" type="submit">Search</button>
 </form>
+<br>
+<div>
+  <% prototypes.forEach(prototype => { %>
+      <a href="/prototypes/<%= prototype.id %>">
+          <img height="150" width="150" src="<%= prototype.coverImagePath %>">
+      </a>
+  <% })  %>
+</div>

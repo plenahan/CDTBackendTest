@@ -2,24 +2,35 @@ const express = require('express')
 const router = express.Router()
 const Type = require('../../models/prototype/type')
 const Prototype = require('../../models/prototype/prototype')
-
+const SortBy = require('../../models/sortby')
 
 
 //All Ideas Route
 router.get('/', async (req, res) => {
-    let searchOptions = {}
-    if (req.query.title != null && req.query.title !== '') {
-        searchOptions.title = new RegExp(req.query.title, 'i')
+    const sortby = new SortBy({ title: req.query.SortBy })
+    let query = Type.find({})
+    if (req.query.title != null && req.query.title != '') {
+        query = query.regex('title', new RegExp(req.query.title, 'i'))
     }
+    if(sortby.title == 'A2Z'){
+        query = query.sort( {title: 'asc'} )
+    }
+    else if (sortby.title == 'Z2A'){
+        query = query.sort( {title: 'desc'} )
+    }
+    // if (req.query.keyword != null && req.query.keyword != '') {
+    //     query = query.regex('keyword', new RegExp(req.query.keyword, 'i'))
+    // }
     try {
-        const types = await Type.find(searchOptions)
-        res.render('prototypes/types/index', { 
-            types: types, 
-            searchOptions: req.query })
+        const types = await query.exec()
+        res.render('prototypes/types/index', {
+            types: types,
+            SortBy: sortby,
+            searchOptions: req.query
+        })
     } catch {
         res.redirect('/')
-    }  
-    // res.render('ideates/notes/index')
+    }
 })
 
 //New Ideas Route

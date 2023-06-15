@@ -2,12 +2,17 @@ const express = require('express')
 const router = express.Router()
 const Prototype = require('../../models/prototype/prototype')
 const Type = require('../../models/prototype/type')
+const PostIt = require('../../models/ideate/post-it')
+const TestNote = require('../../models/test/testnote')
 const { now } = require('mongoose')
+const SortBy = require('../../models/sortby')
 // const type = require('../../models/prototype/type')
 const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif']
 
 //All Templates Route
 router.get('/', async (req, res) => {
+    const types = await Type.find({})
+    const sortby = new SortBy({ title: req.query.SortBy })
     let query = Prototype.find({})
     if (req.query.title != null && req.query.title != '') {
         query = query.regex('title', new RegExp(req.query.title, 'i'))
@@ -18,16 +23,38 @@ router.get('/', async (req, res) => {
     if (req.query.createdAfter != null && req.query.createdAfter != '') {
         query = query.gte('createdAt', req.query.createdAfter)
     }
-    // if (req.query.keyword != null && req.query.keyword != '') {
-    //     query = query.regex('keyword', new RegExp(req.query.keyword, 'i'))
-    // }
+    if (req.query.type != null && req.query.type != '') {
+        query = query.in('type', req.query.type)
+    }
+    if(sortby.title == 'A2Z'){
+        query = query.sort( {title: 'asc'} )
+    }
+    else if (sortby.title == 'Z2A'){
+        query = query.sort( {title: 'desc'} )
+    }
+    else if (sortby.title == 'New2Old'){
+        query = query.sort( {createdAt: 'desc'} )
+    }
+    else if (sortby.title == 'Old2New') {
+        query = query.sort( {createdAt: 'asc'} )
+    }
+    else if (sortby.title == 'HighPri') {
+        query = query.sort( {priority: 'desc'} )
+    }
+    else {
+        query = query.sort( {priority: 'asc'} )
+    }
+
     try {
         const prototypes = await query.exec()
         res.render('prototypes/prototypes/index', {
             prototypes: prototypes,
+            types: types,
+            SortBy: sortby,
             searchOptions: req.query
         })
-    } catch {
+    } catch (err) {
+        console.log(err)
         res.redirect('/')
     }
 })
@@ -60,7 +87,9 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const prototype = await Prototype.findById(req.params.id).populate('type').exec()
-        res.render('prototypes/prototypes/show', { prototype: prototype })
+        const postIts = await PostIt.find({ prototypeConnected: prototype.id}).limit(6).exec()
+        const testNotes = await TestNote.find({ prototypeConnected: prototype.id}).limit(6).exec()
+        res.render('prototypes/prototypes/show', { prototype: prototype, postItsByPrototype: postIts, testNotesByPrototype: testNotes })
     } catch {
         res.redirect('/')
     }

@@ -1,24 +1,47 @@
 const express = require('express')
 const router = express.Router()
 const Persona = require('../../models/empathize/persona')
-
+const SortBy = require('../../models/sortby')
 
 
 //All Ideas Route
 router.get('/', async (req, res) => {
-    let searchOptions = {}
-    if (req.query.name != null && req.query.name !== '') {
-        searchOptions.name = new RegExp(req.query.name, 'i')
+    const sortby = new SortBy({ title: req.query.SortBy })
+    let query = Persona.find({})
+    if (req.query.name != null && req.query.name != '') {
+        query = query.regex('title', new RegExp(req.query.name, 'i'))
     }
+    if (req.query.createdBefore != null && req.query.createdBefore != '') {
+        query = query.lte('createdAt', req.query.createdBefore)
+    }
+    if (req.query.createdAfter != null && req.query.createdAfter != '') {
+        query = query.gte('createdAt', req.query.createdAfter)
+    }
+    if(sortby.title == 'A2Z'){
+        query = query.sort( {name: 'asc'} )
+    }
+    else if (sortby.title == 'Z2A'){
+        query = query.sort( {name: 'desc'} )
+    }
+    else if (sortby.title == 'New2Old'){
+        query = query.sort( {createdAt: 'desc'} )
+    }
+    else {
+        query = query.sort( {createdAt: 'asc'} )
+    }
+    // if (req.query.keyword != null && req.query.keyword != '') {
+    //     query = query.regex('keyword', new RegExp(req.query.keyword, 'i'))
+    // }
     try {
-        const personas = await Persona.find(searchOptions)
-        res.render('empathizes/personas/index', { 
-            personas: personas, 
-            searchOptions: req.query })
+        const personas = await query.exec()
+        res.render('empathizes/personas/index', {
+            personas: personas,
+            SortBy: sortby,
+            searchOptions: req.query
+        })
     } catch {
         res.redirect('/')
-    }  
-    // res.render('ideates/notes/index')
+    }
 })
 
 //New Ideas Route

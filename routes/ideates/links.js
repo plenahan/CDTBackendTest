@@ -1,23 +1,47 @@
 const express = require('express')
 const router = express.Router()
 const Link = require('../../models/ideate/link')
-
+const SortBy = require('../../models/sortby')
 
 
 //All Ideas Route
 router.get('/', async (req, res) => {
-    let searchOptions = {}
-    if (req.query.title != null && req.query.title !== '') {
-        searchOptions.title = new RegExp(req.query.title, 'i')
+    const sortby = new SortBy({ title: req.query.SortBy })
+    let query = Link.find({})
+    if (req.query.title != null && req.query.title != '') {
+        query = query.regex('title', new RegExp(req.query.title, 'i'))
     }
+    if (req.query.createdBefore != null && req.query.createdBefore != '') {
+        query = query.lte('createdAt', req.query.createdBefore)
+    }
+    if (req.query.createdAfter != null && req.query.createdAfter != '') {
+        query = query.gte('createdAt', req.query.createdAfter)
+    }
+    if(sortby.title == 'A2Z'){
+        query = query.sort( {title: 'asc'} )
+    }
+    else if (sortby.title == 'Z2A'){
+        query = query.sort( {title: 'desc'} )
+    }
+    else if (sortby.title == 'New2Old'){
+        query = query.sort( {createdAt: 'desc'} )
+    }
+    else {
+        query = query.sort( {createdAt: 'asc'} )
+    }
+    // if (req.query.keyword != null && req.query.keyword != '') {
+    //     query = query.regex('keyword', new RegExp(req.query.keyword, 'i'))
+    // }
     try {
-        const links = await Link.find(searchOptions)
-        res.render('ideates/links/index', { 
-            links: links, 
-            searchOptions: req.query })
+        const links = await query.exec()
+        res.render('ideates/links/index', {
+            links: links,
+            SortBy: sortby,
+            searchOptions: req.query
+        })
     } catch {
         res.redirect('/')
-    }  
+    }
     // res.render('ideates/notes/index')
 })
 

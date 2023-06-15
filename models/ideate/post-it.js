@@ -21,9 +21,6 @@ const postItSchema = new mongoose.Schema({
         type: String,
         // required: true
     },
-    keyWords: {
-        type: Array
-    },
     ideaFrom: {
         type: String
     },
@@ -31,10 +28,12 @@ const postItSchema = new mongoose.Schema({
         type: Number
     },
     needConnected: {
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'POVStatement'
     },
     prototypeConnected: {
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Prototype'
     },
     keyword: {
         type: mongoose.Schema.Types.ObjectId,

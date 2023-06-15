@@ -1,24 +1,44 @@
 const express = require('express')
 const router = express.Router()
 const Rock = require('../../models/define/rock')
-
+const SortBy = require('../../models/sortby')
 
 
 //All Ideas Route
 router.get('/', async (req, res) => {
-    let searchOptions = {}
-    if (req.query.title != null && req.query.title !== '') {
-        searchOptions.title = new RegExp(req.query.title, 'i')
+    const sortby = new SortBy({ title: req.query.SortBy })
+    let query = Rock.find({})
+    if (req.query.title != null && req.query.title != '') {
+        query = query.regex('title', new RegExp(req.query.title, 'i'))
+    }
+    if (req.query.createdBefore != null && req.query.createdBefore != '') {
+        query = query.lte('createdAt', req.query.createdBefore)
+    }
+    if (req.query.createdAfter != null && req.query.createdAfter != '') {
+        query = query.gte('createdAt', req.query.createdAfter)
+    }
+    if(sortby.title == 'A2Z'){
+        query = query.sort( {title: 'asc'} )
+    }
+    else if (sortby.title == 'Z2A'){
+        query = query.sort( {title: 'desc'} )
+    }
+    else if (sortby.title == 'New2Old'){
+        query = query.sort( {createdAt: 'desc'} )
+    }
+    else {
+        query = query.sort( {createdAt: 'asc'} )
     }
     try {
-        const rock = await Rock.find(searchOptions)
-        res.render('defines/rocks/index', { 
-            rock: rock, 
-            searchOptions: req.query })
+        const rocks = await query.exec()
+        res.render('defines/rocks/index', {
+            rock: rocks,
+            SortBy: sortby,
+            searchOptions: req.query
+        })
     } catch {
         res.redirect('/')
-    }  
-    // res.render('ideates/notes/index')
+    }
 })
 
 //New Ideas Route
