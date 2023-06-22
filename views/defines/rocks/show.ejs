@@ -1,7 +1,9 @@
 <%- include('../define') %>
 <h2 class="page-header"><%= rock.title %></h2>
-<div><%= rock.description %></div>
-<div><%= rock.bigOrLittle %></div>
+<div>Description: <%= rock.description %></div>
+<br>
+<div>Big or Little? <%= rock.bigOrLittle %></div>
+<br>
 <div class="btn-row">
     <a class="btn btn-primary" href="/rocks/<%= rock.id %>/edit">Edit</a>
     <%- include('../../partials/deleteForm', { url: `/rocks/${rock.id}` }) %>

@@ -84,7 +84,7 @@ router.get('/:id', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
     try {
         const testNote = await TestNote.findById(req.params.id)
-        res.render('tests/testnotes/edit', { testNote: testNote })
+        res.render('tests/testnotes/edit', { testNote: testNote, prototypes: await Prototype.find({}) })
     } catch {
         res.redirect('/testnotes')
     }

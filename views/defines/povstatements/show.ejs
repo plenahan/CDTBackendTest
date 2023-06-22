@@ -1,6 +1,7 @@
 <%- include('../define') %>
 <h2 class="page-header"><%= povstatement.statement %></h2>
-<div><%= povstatement.description %></div>
+<div>Description: <%= povstatement.description %></div>
+<br>
 <div class="btn-row">
     <a class="btn btn-primary" href="/povstatements/<%= povstatement.id %>/edit">Edit</a>
     <%- include('../../partials/deleteForm', { url: `/povstatements/${povstatement.id}` }) %>

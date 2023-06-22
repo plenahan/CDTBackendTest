@@ -115,11 +115,11 @@ router.delete('/:id', async (req, res) => {
     let povstatement
     try {
         povstatement = await POVStatement.findById(req.params.id)
-        const response = await Type.deleteOne({ _id: req.params.id })
+        const response = await POVStatement.deleteOne({ _id: req.params.id })
         res.redirect('/povstatements')
     } 
     catch {
-        if (type == null) {
+        if (povstatement == null) {
             res.redirect('/')
         } else{
             res.redirect(`/povstatements/${povstatement.id}`)

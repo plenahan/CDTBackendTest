@@ -1,20 +1,24 @@
-<div>
-    <label>Name</label>
-    <input type="text" name="name" value="<%= persona.name %>">
+<div class="form-row">
+    <div class="form-item">
+        <label>Name</label>
+        <input type="text" name="name" value="<%= persona.name %>">
+    </div>
+    <div class="form-item">
+        <label>Description</label>
+        <textarea name="description"><%= persona.description %></textarea>
+    </div>
 </div>
-<div>
-    <label>Description</label>
-    <textarea name="description"><%= persona.description %></textarea>
-</div>
-<div>
-    <label>Who they want to be:</label>
-    <textarea name="who"><%= persona.who %></textarea>
-</div>
-<div>
-    <label>What they want to do:</label>
-    <textarea name="do"><%= persona.do %></textarea>
-</div>
-<div>
-    <label>How they want to feel:</label>
-    <textarea name="feel"><%= persona.feel %></textarea>
+<div class="form-row">
+    <div class="form-item">
+        <label>Who they want to be:</label>
+        <textarea rows="5" name="who"><%= persona.who %></textarea>
+    </div>
+    <div class="form-item">
+        <label>What they want to do:</label>
+        <textarea rows="5" name="do"><%= persona.do %></textarea>
+    </div>
+    <div class="form-item">
+        <label>How they want to feel:</label>
+        <textarea rows="5" name="feel"><%= persona.feel %></textarea>
+    </div>
 </div>

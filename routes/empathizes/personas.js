@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
     const sortby = new SortBy({ title: req.query.SortBy })
     let query = Persona.find({})
     if (req.query.name != null && req.query.name != '') {
-        query = query.regex('title', new RegExp(req.query.name, 'i'))
+        query = query.regex('name', new RegExp(req.query.name, 'i'))
     }
     if (req.query.createdBefore != null && req.query.createdBefore != '') {
         query = query.lte('createdAt', req.query.createdBefore)

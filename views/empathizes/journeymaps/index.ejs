@@ -1,19 +1,20 @@
 <%- include('../empathize') %>
 <h2 class="page-header">Search Journey Maps</h2>
 <form action="/journeymaps" method="GET">
-    <div>
-        <label>Title</label>
-        <input type="text" name="title" value="<%= searchOptions.title %>">
-    </div>
-    <div>
-        <label>Created After</label>
-        <input type="date" name="createdAfter" value="<%= searchOptions.createdAfter %>">
-    </div>
-    <div>
-        <label>Created Before</label>
-        <input type="date" name="createdBefore" value="<%= searchOptions.createdBefore %>">
-    </div>
-    <div>
+    <div class="form-row">
+        <div class="form-item">
+            <label>Title</label>
+            <input type="text" name="title" value="<%= searchOptions.title %>">
+        </div>
+        <div class="form-item">
+            <label>Created After</label>
+            <input type="date" name="createdAfter" value="<%= searchOptions.createdAfter %>">
+        </div>
+        <div class="form-item">
+            <label>Created Before</label>
+            <input type="date" name="createdBefore" value="<%= searchOptions.createdBefore %>">
+        </div>
+        <div class="form-item">
         <label>Sort By</label>
         <select name="SortBy">
             <% if(SortBy.title == 'A2Z') { %> <option selected label="A-Z" value="A2Z"></option> <% } else { %> <option label="A-Z" value="A2Z"></option> <% } %>
@@ -21,9 +22,11 @@
             <% if(SortBy.title == 'New2Old') { %> <option selected label="Newest to Oldest" value="New2Old"></option> <% } else { %> <option label="Newest to Oldest" value="New2Old"></option> <%}%>
             <% if(SortBy.title == 'Old2New') { %> <option selected label="Oldest to Newest" value="Old2New"></option> <% } else { %> <option label="Oldest to Newest" value="Old2New"></option> <%} %>
         </select>
+        </div>
     </div>
     <button class="btn btn-primary" type="submit">Search</button>
 </form>
+<br>
 <div>
     <% journeyMaps.forEach(journeyMap => { %>
         <a href="/journeymaps/<%= journeyMap.id %>">

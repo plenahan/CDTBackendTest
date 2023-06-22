@@ -1,12 +1,16 @@
-<div>
-    <label>Title</label>
-    <input type="text" name="title" value="<%= journeyMap.title %>">
+<div class="form-row">
+    <div class="form-item">
+        <label>Title</label>
+        <input type="text" name="title" value="<%= journeyMap.title %>">
+    </div>
 </div>
-<div>
-    <label>Description</label>
-    <textarea name="description"><%= journeyMap.description %></textarea>
-</div>
-<div>
-    <label>Cover</label>
-    <input type="file" name="cover" class="filepond">
+<div class="form-row">
+    <div class="form-item form-item-no-grow">
+        <label>Cover</label>
+        <input type="file" name="cover" class="image-cover filepond">
+    </div>
+    <div class="form-item">
+        <label>Description</label>
+        <textarea name="description"><%= journeyMap.description %></textarea>
+    </div>
 </div>

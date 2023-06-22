@@ -27,9 +27,6 @@ router.get('/', async (req, res) => {
     if (req.query.keyword != null && req.query.keyword != '') {
         query = query.in('keyword', req.query.keyword)
     }
-    if (req.query.prototypeConnected != null && req.query.prototypeConnected != '') {
-        query = query.in('prototypeConnected', req.query.prototypeConnected)
-    }
     if (req.query.needConnected != null && req.query.needConnected != '') {
         query = query.in('needConnected', req.query.needConnected)
     }
@@ -57,13 +54,11 @@ router.get('/', async (req, res) => {
         res.render('ideates/post-its/index', {
             postIts: postIts,
             keywords: keywords,
-            prototypeConnected: prototypeConnected,
             needConnected: needConnected,
             SortBy: sortby,
             searchOptions: req.query
         })
-    } catch (err) {
-        console.log(err)
+    } catch {
         res.redirect('/')
     }
 })
@@ -71,7 +66,7 @@ router.get('/', async (req, res) => {
 
 //New Template Route
 router.get('/new', async (req, res) => {
-    renderNewPage(res, { postIt: new PostIt(), keywords: await Keyword.find({}), prototypes: await Prototype.find({}), needs: await Need.find({}) })
+    renderNewPage(res, { postIt: new PostIt(), keywords: await Keyword.find({}),  needs: await Need.find({}) })
 })
 
 //Create Template Route
@@ -82,7 +77,6 @@ router.post('/', async (req, res) => {
         ideaFrom: req.body.ideaFrom,
         priority: req.body.priority,
         needConnected: req.body.needConnected,
-        prototypeConnected: req.body.prototypeConnected,
         keyword: req.body.keyword
     })
     saveCover(postIt, req.body.cover)
@@ -97,10 +91,10 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const postIt = await PostIt.findById(req.params.id).populate('keyword').populate('prototypeConnected').populate('needConnected').exec()
-        res.render('ideates/post-its/show', { postIt: postIt })
-    } catch (err) {
-        console.log(err)
+        const postIt = await PostIt.findById(req.params.id).populate('keyword').populate('needConnected').exec()
+        const prototype = await Prototype.find({ ideaConnected: postIt.id}).limit(6).exec()
+        res.render('ideates/post-its/show', { postIt: postIt, prototypesByPostIt: prototype })
+    } catch {
         res.redirect('/')
     }
 })
@@ -124,7 +118,6 @@ router.put('/:id', async (req, res) => {
         postIt.title = req.body.title
         postIt.description = req.body.description
         postIt.ideaFrom = req.body.ideaFrom
-        postIt.prototypeConnected = req.body.prototypeConnected
         postIt.needConnected = req.body.needConnected
         postIt.priority = req.body.priority
         postIt.keyword = req.body.keyword
@@ -133,8 +126,7 @@ router.put('/:id', async (req, res) => {
         }
         await postIt.save()
         res.redirect(`/post-its/${postIt.id}`)
-    } catch(err) {
-        console.log(err)
+    } catch {
         if (postIt != null) {
             renderEditPage(res, postIt, true)
         } else {
@@ -147,16 +139,13 @@ router.delete('/:id', async (req, res) => {
     let postIt
     try {
         postIt = await PostIt.findById(req.params.id)
-        await postIt.deleteOne()
+        const response = await PostIt.deleteOne({ _id: req.params.id })
         res.redirect('/post-its')
     } catch {
-        if(postIt != null) {
-            res.render('post-its/show', {
-                postIt: postIt,
-                errorMessage: 'Could not remove post-it'
-            })
-        } else {
+        if (postIt == null) {
             res.redirect('/')
+        } else{
+            res.redirect(`/post-its/${postIt.id}`)
         }
     }
 })
@@ -172,10 +161,8 @@ async function renderEditPage(res, postIt, hasError = false) {
 async function renderFormPage(res, postIt, form, hasError = false) {
     try {
         const keywords = await Keyword.find({})
-        const prototypeConnected = await Prototype.find({})
         const needConnected = await Need.find({})
         const params = {
-            prototypeConnected: prototypeConnected,
             needConnected: needConnected,
             keywords: keywords,
             postIt: postIt

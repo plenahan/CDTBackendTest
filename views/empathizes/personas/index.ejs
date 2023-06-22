@@ -1,33 +1,39 @@
 <%- include('../empathize') %>
 <h2 class="page-header">Search Personas</h2>
 <form action="/personas" method="GET">
-    <div>
-        <label>Name</label>
-        <input type="text" name="title" value="<%= searchOptions.title %>">
+    <div class="form-row">
+        <div class="form-item">
+            <label>Name</label>
+            <input type="text" name="name" value="<%= searchOptions.name %>">
+        </div>
+        <div class="form-item">
+            <label>Created After</label>
+            <input type="date" name="createdAfter" value="<%= searchOptions.createdAfter %>">
+        </div>
+        <div class="form-item">
+            <label>Created Before</label>
+            <input type="date" name="createdBefore" value="<%= searchOptions.createdBefore %>">
+        </div>
+        <div class="form-item">
+        <label>Sort By</label>
+        <select name="SortBy">
+            <% if(SortBy.title == 'A2Z') { %> <option selected label="A-Z" value="A2Z"></option> <% } else { %> <option label="A-Z" value="A2Z"></option> <% } %>
+            <% if(SortBy.title == 'Z2A') { %> <option selected label="Z-A" value="Z2A"></option> <% } else { %> <option label="Z-A" value="Z2A"></option> <% } %>
+            <% if(SortBy.title == 'New2Old') { %> <option selected label="Newest to Oldest" value="New2Old"></option> <% } else { %> <option label="Newest to Oldest" value="New2Old"></option> <%}%>
+            <% if(SortBy.title == 'Old2New') { %> <option selected label="Oldest to Newest" value="Old2New"></option> <% } else { %> <option label="Oldest to Newest" value="Old2New"></option> <%} %>
+        </select>
+        </div>
     </div>
-    <div>
-        <label>Created After</label>
-        <input type="date" name="createdAfter" value="<%= searchOptions.createdAfter %>">
-    </div>
-    <div>
-        <label>Created Before</label>
-        <input type="date" name="createdBefore" value="<%= searchOptions.createdBefore %>">
-    </div>
-    <label>Sort By</label>
-    <select name="SortBy">
-        <% if(SortBy.title == 'A2Z') { %> <option selected label="A-Z" value="A2Z"></option> <% } else { %> <option label="A-Z" value="A2Z"></option> <% } %>
-        <% if(SortBy.title == 'Z2A') { %> <option selected label="Z-A" value="Z2A"></option> <% } else { %> <option label="Z-A" value="Z2A"></option> <% } %>
-        <% if(SortBy.title == 'New2Old') { %> <option selected label="Newest to Oldest" value="New2Old"></option> <% } else { %> <option label="Newest to Oldest" value="New2Old"></option> <%}%>
-        <% if(SortBy.title == 'Old2New') { %> <option selected label="Oldest to Newest" value="Old2New"></option> <% } else { %> <option label="Oldest to Newest" value="Old2New"></option> <%} %>
-    </select>
-    <div><button class="btn btn-primary" type="submit">Search</button></div>
+    <button class="btn btn-primary" type="submit">Search</button>
 </form>
 <br>
 <% personas.forEach(persona => { %>
-    <div><%= persona.name %></div>
-    <div class="btn-row">
-        <a class="btn btn-primary" href="/personas/<%= persona.id %>">View</a>
-        <a class="btn btn-primary" href="/personas/<%= persona.id %>/edit">Edit</a>
-        <%- include('../../partials/deleteForm', { url: `/personas/${persona.id}` }) %>
+    <div class="index-title-row">
+        <div class="index-title"><%= persona.name %></div>
+        <div class="btn-row">
+            <a class="btn btn-primary" href="/personas/<%= persona.id %>">View</a>
+            <a class="btn btn-primary" href="/personas/<%= persona.id %>/edit">Edit</a>
+            <%- include('../../partials/deleteForm', { url: `/personas/${persona.id}` }) %>
+        </div>
     </div>
 <% }) %>

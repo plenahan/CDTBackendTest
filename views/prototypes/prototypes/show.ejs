@@ -1,23 +1,29 @@
 <%- include('../prototype') %>
 <h2 class="page-header"><%= prototype.title %></h2>
+<div class="image-details">
+    <div>
+        <img class="image-cover" src="<%= prototype.coverImagePath %>">
+        <div class="image-details-btn-grid">
+            <a class="btn btn-primary" href="/prototypes/<%= prototype.id %>/edit">Edit</a>
+            <%- include('../../partials/deleteForm', { url: `/prototypes/${prototype.id}` }) %>
+        </div>
+    </div>
+    <div class="image-details-grid">
+    <div class="image-details-label">Description:</div>
 <div><%= prototype.description %></div>
-<img width="200z" src="<%= prototype.coverImagePath %>">
-<div>Created: <%= prototype.createdAt.toDateString() %></div>
-<div>Type: <%= prototype.type.title %></div>
-<div>Purpose: <%= prototype.purpose %></div>
-<div>Priority: <%= prototype.priority %></div>
-<div class="btn-row">
-    <a class="btn btn-primary" href="/prototypes/<%= prototype.id %>/edit">Edit</a>
-    <%- include('../../partials/deleteForm', { url: `/prototypes/${prototype.id}` }) %>
+<div class="image-details-label">Created:</div>
+<div><%= prototype.createdAt.toDateString() %></div>
+<div class="image-details-label">Type:</div>
+<div><%= prototype.type.title %></div>
+<div class="image-details-label">Idea Connected:</div>
+<div><%= prototype.ideaConnected.title %></div>
+<div class="image-details-label">Purpose:</div>
+<div><%= prototype.purpose %></div>
+<div class="image-details-label">Priority:</div>
+<div><%= prototype.priority %></div>
 </div>
-<% if (postItsByPrototype.length > 0) { %>
-    <h2>Design Ideas</h2>
-    <% postItsByPrototype.forEach(postIt => { %>
-        <a href="/post-its/<%= postIt.id %>">
-            <img height="150" width="150" src="<%= postIt.coverImagePath %>">
-        </a>
-    <% }) %>
-<% } %>
+</div>
+
 <% if (testNotesByPrototype.length > 0) { %>
     <h2>Test Notes</h2>
     <% testNotesByPrototype.forEach(testNote => { %>

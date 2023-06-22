@@ -1,8 +1,12 @@
-<div>
-    <label>Statement ([User] needs (a way) to [doing something] because [insight about user])</label> <br>
-    <input type="text" name="statement" value="<%= povstatement.statement %>">
+<div class="form-row">
+    <div class="form-item">
+        <label>Statement: ([User] needs (a way) to [doing something] because [insight about user])</label> <br>
+        <input type="text" name="statement" value="<%= povstatement.statement %>">
+    </div>
 </div>
-<div>
-    <label>Description</label> <br>
-    <textarea name="description"><%= povstatement.description %></textarea>
+<div class="form-row">
+    <div class="form-item">
+        <label>Description</label> <br>
+        <textarea rows="3" name="description"><%= povstatement.description %></textarea>
+    </div>
 </div>

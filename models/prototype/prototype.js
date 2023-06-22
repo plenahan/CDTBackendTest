@@ -31,6 +31,10 @@ const prototypeSchema = new mongoose.Schema({
     type: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Type'
+    },
+    ideaConnected: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post-it'
     }
 })
 prototypeSchema.virtual('coverImagePath').get(function(){

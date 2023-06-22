@@ -1,19 +1,20 @@
 <%- include('../prototype') %>
 <h2 class="page-header">Search Prototypes</h2>
 <form action="/prototypes" method="GET">
-  <div>
+  <div class="form-row">
+  <div class="form-item">
     <label>Title</label>
     <input type="text" name="title" value="<%= searchOptions.title %>">
 </div>
-<div>
+<div class="form-item">
     <label>Created After</label>
     <input type="date" name="createdAfter" value="<%= searchOptions.createdAfter %>">
 </div>
-<div>
+<div class="form-item">
     <label>Created Before</label>
     <input type="date" name="createdBefore" value="<%= searchOptions.createdBefore %>">
 </div>
-<div>
+<div class="form-item">
 <label>Sort By</label>
 <select name="SortBy">
     <% if(SortBy.title == 'A2Z') { %> <option selected label="A-Z" value="A2Z"></option> <% } else { %> <option label="A-Z" value="A2Z"></option> <% } %>
@@ -25,7 +26,7 @@
 </select>
 </div>
 
-    <div>
+    <div class="form-item">
         <label>Type</label>
         <select name="type">
           <option label="None" value=""></option>
@@ -38,7 +39,22 @@
         <% }) %>
         </select>
       </div>
+      <div class="form-item">
+        <label>Design Idea</label>
+        <select name="ideaConnected">
+          <option label="None" value=""></option>
+        <% ideaConnected.forEach(ideaConnected => { %>
+          <% if (ideaConnected.id == searchOptions.ideaConnected) { %>
+            <option selected label="<%= ideaConnected.title %>" value="<%= ideaConnected.id %>">
+          <% } else { %>
+            <option label="<%= ideaConnected.title %>" value="<%= ideaConnected.id %>">
+          <% } %>
+        <% }) %>
+        </select>
+      </div>
+    </div>
       <button class="btn btn-primary" type="submit">Search</button>
+
 </form>
 <br>
 <div>

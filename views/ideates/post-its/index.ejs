@@ -1,19 +1,20 @@
 <%- include('../ideate') %>
 <h2 class="page-header">Search Design Ideas</h2>
 <form action="/post-its" method="GET">
-  <div>
+  <div class="form-row">
+  <div class="form-item">
     <label>Title</label>
     <input type="text" name="title" value="<%= searchOptions.title %>">
 </div>
-<div>
+<div class="form-item">
     <label>Created After</label>
     <input type="date" name="createdAfter" value="<%= searchOptions.createdAfter %>">
 </div>
-<div>
+<div class="form-item">
     <label>Created Before</label>
     <input type="date" name="createdBefore" value="<%= searchOptions.createdBefore %>">
 </div>
-<div>
+<div class="form-item">
 <label>Sort By</label>
 <select name="SortBy">
     <% if(SortBy.title == 'A2Z') { %> <option selected label="A-Z" value="A2Z"></option> <% } else { %> <option label="A-Z" value="A2Z"></option> <% } %>
@@ -25,7 +26,7 @@
 </select>
 </div>
 
-    <div>
+    <div class="form-item">
         <label>Keyword</label>
         <select name="keyword">
           <option label="None" value=""></option>
@@ -38,20 +39,7 @@
         <% }) %>
         </select>
       </div>
-      <div>
-        <label>Prototype</label>
-        <select name="prototypeConnected">
-          <option label="None" value=""></option>
-        <% prototypeConnected.forEach(prototypeConnected => { %>
-          <% if (prototypeConnected.id == searchOptions.prototypeConnected) { %>
-            <option selected label="<%= prototypeConnected.title %>" value="<%= prototypeConnected.id %>">
-          <% } else { %>
-            <option label="<%= prototypeConnected.title %>" value="<%= prototypeConnected.id %>">
-          <% } %>
-        <% }) %>
-        </select>
-      </div>
-      <div>
+      <div class="form-item">
         <label>Need</label>
         <select name="needConnected">
           <option label="None" value=""></option>
@@ -64,6 +52,7 @@
         <% }) %>
         </select>
       </div>
+    </div>
       <button class="btn btn-primary" type="submit">Search</button>
 </form>
 <br>

@@ -1,20 +1,24 @@
-<div>
+<div class="form-row">
+<div class="form-item">
     <label>Title</label>
     <input type="text" name="title" value="<%= testNote.title %>">
 </div>
-<div>
+<div class="form-item">
+  <label>Prototype Connected</label>
+  <select name="prototypeConnected">
+  <% prototypes.forEach(prototype => { %>
+    <% if (prototype.id == testNote.prototypeConnected) { %>
+      <option selected label="<%= prototype.title %>" value="<%= prototype.id %>">
+    <% } else { %>
+      <option label="<%= prototype.title %>" value="<%= prototype.id %>">
+    <% } %>
+  <% }) %>
+  </select>
+</div>
+</div>
+<div class="form-row">
+<div class="form-item">
     <label>Description</label>
     <textarea name="description"><%= testNote.description %></textarea>
 </div>
-<div>
-    <label>Prototype Connected</label>
-    <select name="prototypeConnected">
-    <% prototypes.forEach(prototype => { %>
-      <% if (prototype.id == testNote.prototypeConnected) { %>
-        <option selected label="<%= prototype.title %>" value="<%= prototype.id %>">
-      <% } else { %>
-        <option label="<%= prototype.title %>" value="<%= prototype.id %>">
-      <% } %>
-    <% }) %>
-    </select>
-  </div>
+</div>

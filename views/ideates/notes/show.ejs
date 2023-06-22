@@ -1,6 +1,6 @@
 <%- include('../ideate') %>
 <h2 class="page-header"><%= note.title %></h2>
-<p><%= note.description %></p>
+<p>Description: <%= note.description %></p>
 <div class="btn-row">
     <a class="btn btn-primary" href="/ideatenotes/<%= note.id %>/edit">Edit</a>
     <%- include('../../partials/deleteForm', { url: `/ideatenotes/${note.id}` }) %>

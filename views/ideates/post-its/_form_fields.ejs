@@ -1,74 +1,52 @@
-<div>
+<div class="form-row">
+  <div class="form-item">
     <label>Title</label>
     <input type="text" name="title" value="<%= postIt.title %>">
-</div>
-<div>
-    <label>Keyword</label>
-    <select name="keyword">
-    <% keywords.forEach(keyword => { %>
-      <% if (keyword.id == postIt.keyword) { %>
-        <option selected label="<%= keyword.word %>" value="<%= keyword.id %>">
-      <% } else { %>
-        <option label="<%= keyword.word %>" value="<%= keyword.id %>">
-      <% } %>
-    <% }) %>
+  </div>
+  <div class="form-item">
+      <label>Keyword</label>
+      <select name="keyword">
+      <% keywords.forEach(keyword => { %>
+        <% if (keyword.id == postIt.keyword) { %>
+          <option selected label="<%= keyword.word %>" value="<%= keyword.id %>">
+        <% } else { %>
+          <option label="<%= keyword.word %>" value="<%= keyword.id %>">
+        <% } %>
+      <% }) %>
     </select>
   </div>
-  <div>
-    <label>Idea From</label>
-    <textarea name="ideaFrom"><%= postIt.ideaFrom %></textarea>
+</div>
+<div class="form-row">
+  <div class="form-item">
+    <label>Need Connected</label>
+    <select name="needConnected">
+      <% needConnected.forEach(needConnected => { %>
+        <% if (needConnected.id == postIt.needConnected) { %>
+          <option selected label="<%= needConnected.statement %>" value="<%= needConnected.id %>">
+        <% } else { %>
+          <option label="<%= needConnected.statement %>" value="<%= needConnected.id %>">
+        <% } %>
+      <% }) %>
+      </select>
   </div>
-  <div>
+  <div class="form-item">
     <label>Priority</label>
     <input type="number" name="priority" min="1" max="10" value="<%= postIt.priority %>">
   </div>
-  <div>
-    <label>Prototype Connected</label>
-    <select name="prototypeConnected">
-    <% prototypeConnected.forEach(prototypeConnected => { %>
-      <% if (prototypeConnected.id == postIt.prototypeConnected) { %>
-        <option selected label="<%= prototypeConnected.title %>" value="<%= keyword.id %>">
-      <% } else { %>
-        <option label="<%= prototypeConnected.title %>" value="<%= prototypeConnected.id %>">
-      <% } %>
-    <% }) %>
-    </select>
-  </div>
-  <div>
-    <label>Need Connected</label>
-    <select name="needConnected">
-    <% needConnected.forEach(needConnected => { %>
-      <% if (needConnected.id == postIt.needConnected) { %>
-        <option selected label="<%= needConnected.statement %>" value="<%= needConnected.id %>">
-      <% } else { %>
-        <option label="<%= needConnected.statement %>" value="<%= needConnected.id %>">
-      <% } %>
-    <% }) %>
-    </select>
-  </div>
-<!-- <div>
-    <label>Publish Date</label>
-    <input type="date" name="publishDate" 
-        value="<= book.publishDate == null ? '' : 
-        book.publishDate.toISOString().split('T') %>">
-</div> -->
-<!-- <div>
-    <label>Page Count</label>
-    <input type="number" name="pageCount" min="1" value="<= book.pageCount %>">
-</div> -->
-<div>
-  <label>Description</label>
-  <textarea name="description"><%= postIt.description %></textarea>
 </div>
-<div>
+<div class="form-row">
+  <div class="form-item form-item-no-grow">
     <label>Cover</label>
-    <input type="file" name="cover" class="filepond">
+    <input type="file" name="cover" class="image-cover filepond">
+  </div>
+  <div class="form-item">
+    <label>Description</label>
+    <textarea name="description"><%= postIt.description %></textarea>
+  </div>
 </div>
-<!-- <div>
-  <label>Keywords</label>
-  <input type="checkbox" name="keywords[]" value="1">
-  <input type="checkbox" name="keywords[]" value="2">
-  <input type="checkbox" name="keywords[]" value="3">
-  <input type="checkbox" name="keywords[]" value="4">
-  <input type="checkbox" name="keywords[]" value="5">
-</div> -->
+<div class="form-row">
+  <div class="form-item">
+    <label>Idea From</label>
+    <textarea name="ideaFrom"><%= postIt.ideaFrom %></textarea>
+  </div>
+</div>

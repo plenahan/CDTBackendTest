@@ -1,9 +1,18 @@
 <%- include('../empathize') %>
 <h2 class="page-header"><%= journeyMap.title %></h2>
-<div><%= journeyMap.description %></div>
-<img width="200z" src="<%= journeyMap.coverImagePath %>">
-<div>Created: <%= journeyMap.createdAt.toDateString() %></div>
-<div class="btn-row">
-    <a class="btn btn-primary" href="/journeymaps/<%= journeyMap.id %>/edit">Edit</a>
-    <%- include('../../partials/deleteForm', { url: `/journeymaps/${journeyMap.id}` }) %>
+<div class="image-details">
+    <div>
+        <img class="image-cover" src="<%= journeyMap.coverImagePath %>">
+        <div class="image-details-btn-grid">
+            <a class="btn btn-primary" href="/journeymaps/<%= journeyMap.id %>/edit">Edit</a>
+            <%- include('../../partials/deleteForm', { url: `/journeymaps/${journeyMap.id}` }) %>
+        </div>
+    </div>
+    <div class="image-details-grid">
+        <div class="image-details-label">Description:</div>
+        <div><%= journeyMap.description %></div>
+        <div class="image-details-label">Created:</div>
+        <div><%= journeyMap.createdAt.toDateString() %></div>
+    </div>
+
 </div>

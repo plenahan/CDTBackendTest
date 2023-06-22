@@ -1,9 +1,13 @@
 <%- include('../empathize') %>
 <h2 class="page-header"><%= persona.name %></h2>
 <div>Description: <%= persona.description %></div>
+<br>
 <div>Who they want to be: <%= persona.who %></div>
+<br>
 <div>What they want to do: <%= persona.do %></div>
+<br>
 <div>How they want to feel: <%= persona.feel %></div>
+<br>
 <div class="btn-row">
     <a class="btn btn-primary" href="/personas/<%= persona.id %>/edit">Edit</a>
     <%- include('../../partials/deleteForm', { url: `/personas/${persona.id}` }) %>

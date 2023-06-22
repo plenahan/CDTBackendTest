@@ -1,13 +1,33 @@
 <%- include('../ideate') %>
 <h2 class="page-header"><%= postIt.title %></h2>
-<div><%= postIt.description %></div>
-<div>Keyword: <%= postIt.keyword.word %></div>
-<div>Idea From: <%= postIt.ideaFrom %></div>
-<div>Need Connected: <%= postIt.needConnected.statement %></div>
-<div>Prototype Connected: <%= postIt.prototypeConnected.title %></div>
-<div>Priority: <%= postIt.priority %></div>
-<img width="200z" src="<%= postIt.coverImagePath %>">
-<div class="btn-row">
-    <a class="btn btn-primary" href="/post-its/<%= postIt.id %>/edit">Edit</a>
-    <%- include('../../partials/deleteForm', { url: `/post-its/${postIt.id}` }) %>
+<div class="image-details">
+    <div>
+        <img class="image-cover" src="<%= postIt.coverImagePath %>">
+        <div class="image-details-btn-grid">
+            <a class="btn btn-primary" href="/post-its/<%= postIt.id %>/edit">Edit</a>
+            <%- include('../../partials/deleteForm', { url: `/post-its/${postIt.id}` }) %>
+        </div>
+    </div>
+    <div class="image-details-grid">
+        <div class="image-details-label">Description:</div>
+        <div><%= postIt.description %></div>
+        <div class="image-details-label">Need Connected:</div>
+        <div><%= postIt.needConnected.statement %></div>
+        <div class="image-details-label">Idea From:</div>
+        <div><%= postIt.ideaFrom %></div>
+        <div class="image-details-label">Priority:</div>
+        <div><%= postIt.priority %></div>
+        <div class="image-details-label">Keyword:</div>
+        <div><%= postIt.keyword.word %></div>
+    </div>
 </div>
+<% if (prototypesByPostIt.length > 0) { %>
+    <h2>Prototypes</h2>
+    <div class="image-grid">
+    <% prototypesByPostIt.forEach(prototype => { %>
+        <a href="/prototypes/<%= prototype.id %>">
+            <img class="image-cover" src="<%= prototype.coverImagePath %>">
+        </a>
+    <% }) %>
+</div>
+<% } %>

@@ -12,6 +12,7 @@ const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif']
 //All Templates Route
 router.get('/', async (req, res) => {
     const types = await Type.find({})
+    const ideaConnected = await PostIt.find({})
     const sortby = new SortBy({ title: req.query.SortBy })
     let query = Prototype.find({})
     if (req.query.title != null && req.query.title != '') {
@@ -25,6 +26,9 @@ router.get('/', async (req, res) => {
     }
     if (req.query.type != null && req.query.type != '') {
         query = query.in('type', req.query.type)
+    }
+    if (req.query.ideaConnected != null && req.query.ideaConnected != '') {
+        query = query.in('ideaConnected', req.query.ideaConnected)
     }
     if(sortby.title == 'A2Z'){
         query = query.sort( {title: 'asc'} )
@@ -50,11 +54,11 @@ router.get('/', async (req, res) => {
         res.render('prototypes/prototypes/index', {
             prototypes: prototypes,
             types: types,
+            ideaConnected: ideaConnected,
             SortBy: sortby,
             searchOptions: req.query
         })
-    } catch (err) {
-        console.log(err)
+    } catch {
         res.redirect('/')
     }
 })
@@ -62,7 +66,7 @@ router.get('/', async (req, res) => {
 
 //New Template Route
 router.get('/new', async (req, res) => {
-    renderNewPage(res, { prototype: new Prototype(), type: await Type.find({}) })
+    renderNewPage(res, { prototype: new Prototype(), type: await Type.find({}), ideaConnected: await PostIt.find({}) })
 })
 
 //Create Template Route
@@ -72,7 +76,8 @@ router.post('/', async (req, res) => {
         description: req.body.description,
         priority: req.body.priority,
         purpose: req.body.purpose,
-        type: req.body.type
+        type: req.body.type,
+        ideaConnected: req.body.ideaConnected
     })
     saveCover(prototype, req.body.cover)
 
@@ -86,11 +91,11 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const prototype = await Prototype.findById(req.params.id).populate('type').exec()
-        const postIts = await PostIt.find({ prototypeConnected: prototype.id}).limit(6).exec()
+        const prototype = await Prototype.findById(req.params.id).populate('type').populate('ideaConnected').exec()
         const testNotes = await TestNote.find({ prototypeConnected: prototype.id}).limit(6).exec()
-        res.render('prototypes/prototypes/show', { prototype: prototype, postItsByPrototype: postIts, testNotesByPrototype: testNotes })
-    } catch {
+        res.render('prototypes/prototypes/show', { prototype: prototype, testNotesByPrototype: testNotes })
+    } catch (err) {
+        console.log(err)
         res.redirect('/')
     }
 })
@@ -116,13 +121,13 @@ router.put('/:id', async (req, res) => {
         prototype.purpose = req.body.purpose
         prototype.priority = req.body.priority
         prototype.type = req.body.type
+        prototype.ideaConnected = req.body.ideaConnected
         if (req.body.cover != null && req.body.cover !== '') {
             saveCover(prototype, req.body.cover)
         }
         await prototype.save()
         res.redirect(`/prototypes/${prototype.id}`)
-    } catch(err) {
-        console.log(err)
+    } catch {
         if (prototype != null) {
             renderEditPage(res, prototype, true)
         } else {
@@ -157,7 +162,9 @@ async function renderEditPage(res, prototype, hasError = false) {
 async function renderFormPage(res, prototype, form, hasError = false) {
     try {
         const type = await Type.find({})
+        const ideaConnected = await PostIt.find({})
         const params = {
+            ideaConnected: ideaConnected,
             types: type,
             prototype: prototype
         }

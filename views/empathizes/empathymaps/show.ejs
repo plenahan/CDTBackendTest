@@ -1,9 +1,18 @@
 <%- include('../empathize') %>
 <h2 class="page-header"><%= empathyMap.title %></h2>
-<div><%= empathyMap.description %></div>
-<img width="200z" src="<%= empathyMap.coverImagePath %>">
-<div>Created: <%= empathyMap.createdAt.toDateString() %></div>
-<div class="btn-row">
-    <a class="btn btn-primary" href="/empathymaps/<%= empathyMap.id %>/edit">Edit</a>
-    <%- include('../../partials/deleteForm', { url: `/empathymaps/${empathyMap.id}` }) %>
+<div class="image-details">
+    <div>
+        <img class="image-cover" src="<%= empathyMap.coverImagePath %>">
+        <div class="image-details-btn-grid">
+            <a class="btn btn-primary" href="/empathymaps/<%= empathyMap.id %>/edit">Edit</a>
+            <%- include('../../partials/deleteForm', { url: `/empathymaps/${empathyMap.id}` }) %>
+        </div>
+    </div>
+    <div class="image-details-grid">
+        <div class="image-details-label">Description:</div>
+        <div><%= empathyMap.description %></div>
+        <div class="image-details-label">Created:</div>
+        <div><%= empathyMap.createdAt.toDateString() %></div>
+    </div>
+
 </div>
