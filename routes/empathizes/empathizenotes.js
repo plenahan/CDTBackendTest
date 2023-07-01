@@ -59,7 +59,8 @@ router.post('/', async (req, res) => {
     try {
         const newNote = await empathizeNote.save()
         res.redirect(`/empathizenotes/${newNote.id}`)
-    } catch {
+    } catch (err) {
+        console.log(err)
         res.render('empathizes/empathizenotes/new', {
             empathizeNote: empathizeNote,
             errorMessage: 'Error creating idea'
