@@ -1,0 +1,37 @@
+<%- include('../test') %>
+<h2 class="page-header">Search Testing</h2>
+<form action="/testing" method="GET">
+    <div class="form-row">
+    <div class="form-item">
+        <label>Title</label>
+        <input type="text" name="title" value="<%= searchOptions.title %>">
+    </div>
+    <div class="form-item">
+        <label>Created After</label>
+        <input type="date" name="createdAfter" value="<%= searchOptions.createdAfter %>">
+    </div>
+    <div class="form-item">
+        <label>Created Before</label>
+        <input type="date" name="createdBefore" value="<%= searchOptions.createdBefore %>">
+    </div>
+    <div class="form-item">
+    <label>Sort By</label>
+    <select name="SortBy">
+        <% if(SortBy.title == 'A2Z') { %> <option selected label="A-Z" value="A2Z"></option> <% } else { %> <option label="A-Z" value="A2Z"></option> <% } %>
+        <% if(SortBy.title == 'Z2A') { %> <option selected label="Z-A" value="Z2A"></option> <% } else { %> <option label="Z-A" value="Z2A"></option> <% } %>
+        <% if(SortBy.title == 'New2Old') { %> <option selected label="Newest to Oldest" value="New2Old"></option> <% } else { %> <option label="Newest to Oldest" value="New2Old"></option> <%}%>
+        <% if(SortBy.title == 'Old2New') { %> <option selected label="Oldest to Newest" value="Old2New"></option> <% } else { %> <option label="Oldest to Newest" value="Old2New"></option> <%} %>
+    </select>
+</div>
+</div>
+    <div><button class="btn btn-primary" type="submit">Search</button></div>
+</form>
+<br>
+<% testings.forEach(testing => { %>
+    <div><%= testing.title %></div>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/testing/<%= testing.id %>">View</a>
+        <a class="btn btn-primary" href="/testing/<%= testing.id %>/edit">Edit</a>
+        <%- include('../../partials/deleteForm', { url: `/testing/${testing.id}` }) %>
+    </div>
+<% }) %>

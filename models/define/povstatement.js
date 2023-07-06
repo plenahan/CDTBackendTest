@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const PostIt = require('../ideate/post-it')
+const IdeationSession = require('../ideate/ideationsession')
 
 const povStatementSchema = new mongoose.Schema({
     statement: {
@@ -20,9 +21,14 @@ povStatementSchema.pre('deleteOne', async function(next) {
     try {
         const query = this.getFilter()
         const hasIdea = await PostIt.exists({ needConnected: query._id })
+        // const hasIdeationSession = await IdeationSession.exists({ needs: query.id })
         if (hasIdea) {
             next(new Error('This POV statement still has Design Ideas.'))
-        } else {
+        }
+        // else if (hasIdeationSession) {
+        //     next(new Error('This POV statement still has Design Sessions.'))
+        // } 
+        else {
             next()
         }
     } catch (err) {

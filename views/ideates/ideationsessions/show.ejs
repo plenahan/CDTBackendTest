@@ -1,0 +1,21 @@
+<%- include('../ideate') %>
+<h2 class="page-header"><%= ideationSession.title %></h2>
+<div class="image-details">
+    <div>
+        <img class="image-cover" src="<%= ideationSession.coverImagePath %>">
+        <div class="image-details-btn-grid">
+            <a class="btn btn-primary" href="/ideationsessions/<%= ideationSession.id %>/edit">Edit</a>
+            <%- include('../../partials/deleteForm', { url: `/ideationSessions/${ideationSession.id}` }) %>
+        </div>
+    </div>
+    <div class="image-details-grid">
+        <div class="image-details-label">Description:</div>
+        <div><%= ideationSession.description %></div>
+        <div class="image-details-label">Needs:</div>
+        <div><% needs.forEach(need => { %>
+            <%= need.statement %> <br> 
+        <% }) %></div>
+        <div class="image-details-label">Type:</div>
+        <div><%= ideationSession.ideationType.title %></div>
+    </div>
+</div>

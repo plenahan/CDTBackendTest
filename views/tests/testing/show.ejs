@@ -1,0 +1,19 @@
+<%- include('../test') %>
+<h2 class="page-header"><%= testing.title %></h2>
+<div>Description: <%= testing.description %></div>
+<div>Prototypes:</div>
+<div><% prototypes.forEach(prototype => { %>
+    <%= prototype.title %> <br> 
+<% }) %></div>
+<div>Goals:</div>
+<div><% goals.forEach(goal => { %>
+    <%= goal.title %> <br> 
+<% }) %></div>
+<div>Conditions: <%= testing.conditions %></div>
+<div>Data: <%= testing.data.title %></div>
+<div>Metric: <%= testing.data.metric %></div>
+<div>Addressed User Needs: <%= testing.addressedUserNeeds %></div>
+<div class="btn-row">
+    <a class="btn btn-primary" href="/testing/<%= testing.id %>/edit">Edit</a>
+    <%- include('../../partials/deleteForm', { url: `/testing/${testing.id}` }) %>
+</div>

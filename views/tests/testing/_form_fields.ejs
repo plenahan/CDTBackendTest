@@ -1,0 +1,63 @@
+<div class="form-row">
+<div class="form-item">
+    <label>Title</label>
+    <input type="text" name="title" value="<%= testing.title %>">
+</div>
+<div class="form-item">
+  <label>Prototypes</label>
+  <select name="prototypes" id="prototypes" multiple>
+  <% prototypes.forEach(prototype => { %>
+    <% if (prototype.id == testing.prototype) { %>
+      <option selected label="<%= prototype.title %>" value="<%= prototype.id %>">
+    <% } else { %>
+      <option label="<%= prototype.title %>" value="<%= prototype.id %>">
+    <% } %>
+  <% }) %>
+  </select>
+  <%- include('../../partials/multiselect.ejs', { id: 'prototypes' }) %>
+</div>
+<div class="form-item">
+  <label>Goals</label>
+  <select name="goals" id="goals" multiple>
+  <% goals.forEach(goal => { %>
+    <% if (goal.id == testing.goal) { %>
+      <option selected label="<%= goal.title %>" value="<%= goal.id %>">
+    <% } else { %>
+      <option label="<%= goal.title %>" value="<%= goal.id %>">
+    <% } %>
+  <% }) %>
+  </select>
+  <%- include('../../partials/multiselect.ejs', { id: 'goals' }) %>
+</div>
+</div>
+<div class="form-row">
+<div class="form-item">
+    <label>Description</label>
+    <textarea name="description"><%= testing.description %></textarea>
+</div>
+<div class="form-item">
+  <label>Conditions</label>
+  <textarea name="conditions"><%= testing.conditions %></textarea>
+</div>
+</div>
+<div class="form-row">
+<div class="form-item">
+  <label>Data</label>
+  <select name="data">
+  <% datas.forEach(data => { %>
+    <% if (data.id == testing.data) { %>
+      <option selected label="<%= data.title %>" value="<%= data.id %>">
+    <% } else { %>
+      <option label="<%= data.title %>" value="<%= data.id %>">
+    <% } %>
+  <% }) %>
+  </select>
+</div>
+<div class="form-item">
+  <label>Addressed User Needs</label>
+  <select name="addressedUserNeeds">
+      <option selected value="true" label="true">
+      <option label="false" value="false">
+  </select>
+</div>
+</div>

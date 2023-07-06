@@ -1,0 +1,7 @@
+<%- include('../test') %>
+<h2 class="page-header"><%= goal.title %></h2>
+<div>Description: <%= goal.description %></div>
+<div class="btn-row">
+    <a class="btn btn-primary" href="/goals/<%= goal.id %>/edit">Edit</a>
+    <%- include('../../partials/deleteForm', { url: `/goals/${goal.id}` }) %>
+</div>

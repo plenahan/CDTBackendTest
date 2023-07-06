@@ -1,0 +1,14 @@
+<%- include('../ideate') %>
+<h2 class="page-header"><%= ideationType.title %></h2>
+<div class="btn-row">
+    <a class="btn btn-primary" href="/ideationtypes/<%= ideationType.id %>/edit">Edit</a>
+    <%- include('../../partials/deleteForm', { url: `/ideationtypes/${ideationType.id}` }) %>
+</div>
+<% if (ideationSessionsByIdeationType.length > 0) { %>
+    <h2>Prototypes</h2>
+    <% ideationSessionsByIdeationType.forEach(ideationSession => { %>
+        <a href="/ideationsessions/<%= ideationSession.id %>">
+            <img height="150" width="150" src="<%= ideationSession.coverImagePath %>">
+        </a>
+    <% }) %>
+<% } %>

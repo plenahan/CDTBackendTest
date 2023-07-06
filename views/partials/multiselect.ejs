@@ -1,0 +1,15 @@
+<script>
+  var id = '<%= id %>'
+  var dropdown = document.getElementById(id)
+
+  dropdown.addEventListener('mousedown', function (e) {
+    e.preventDefault();
+    const originalScrollTop = this.scrollTop;
+
+    e.target.selected = !e.target.selected;
+
+    setTimeout(() => {
+      this.scrollTop = originalScrollTop;
+    }, 0);
+  });
+</script>

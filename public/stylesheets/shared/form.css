@@ -54,6 +54,10 @@
     border-color: var(--form-input-border-color-dark);
 }
 
+.form-item select[multiple] {
+    height: 100%;
+}
+
 .filepond--root {
     font-family: Arial, Helvetica, sans-serif;
     margin-bottom: 0;

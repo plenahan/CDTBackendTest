@@ -1,0 +1,27 @@
+<%- include('../ideate') %>
+<h2 class="page-header">Search Ideation Types</h2>
+<form action="/ideationtypes" method="GET">
+    <div class="form-row">
+    <div class="form-item">
+        <label>Title</label>
+        <input type="text" name="title" value="<%= searchOptions.title %>">
+    </div>
+    <div class="form-item">
+    <label>Sort By</label>
+    <select name="SortBy">
+        <% if(SortBy.title == 'A2Z') { %> <option selected label="A-Z" value="A2Z"></option> <% } else { %> <option label="A-Z" value="A2Z"></option> <% } %>
+        <% if(SortBy.title == 'Z2A') { %> <option selected label="Z-A" value="Z2A"></option> <% } else { %> <option label="Z-A" value="Z2A"></option> <% } %>
+    </select>
+</div>
+</div>
+    <div><button class="btn btn-primary" type="submit">Search</button></div>
+</form>
+<br>
+<% ideationTypes.forEach(ideationType => { %>
+    <div><%= ideationType.title %></div>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/ideationtypes/<%= ideationType.id %>">View</a>
+        <a class="btn btn-primary" href="/ideationtypes/<%= ideationType.id %>/edit">Edit</a>
+        <%- include('../../partials/deleteForm', { url: `/ideationtypes/${ideationType.id}` }) %>
+    </div>
+<% }) %>

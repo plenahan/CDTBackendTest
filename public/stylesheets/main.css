@@ -30,6 +30,10 @@ body {
 .inner-container {
     margin: 0 2rem;
 }
+/* .create-inner-container {
+    margin: 0 2rem;
+    display: flex;
+} */
 
 .page-header {
     font-size: 2rem;

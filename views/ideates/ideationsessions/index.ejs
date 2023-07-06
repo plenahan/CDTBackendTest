@@ -1,0 +1,65 @@
+<%- include('../ideate') %>
+<h2 class="page-header">Search Ideation Sessions</h2>
+<form action="/ideationsessions" method="GET">
+  <div class="form-row">
+  <div class="form-item">
+    <label>Title</label>
+    <input type="text" name="title" value="<%= searchOptions.title %>">
+</div>
+<div class="form-item">
+    <label>Created After</label>
+    <input type="date" name="createdAfter" value="<%= searchOptions.createdAfter %>">
+</div>
+<div class="form-item">
+    <label>Created Before</label>
+    <input type="date" name="createdBefore" value="<%= searchOptions.createdBefore %>">
+</div>
+<div class="form-item">
+<label>Sort By</label>
+<select name="SortBy">
+    <% if(SortBy.title == 'A2Z') { %> <option selected label="A-Z" value="A2Z"></option> <% } else { %> <option label="A-Z" value="A2Z"></option> <% } %>
+    <% if(SortBy.title == 'Z2A') { %> <option selected label="Z-A" value="Z2A"></option> <% } else { %> <option label="Z-A" value="Z2A"></option> <% } %>
+    <% if(SortBy.title == 'New2Old') { %> <option selected label="Newest to Oldest" value="New2Old"></option> <% } else { %> <option label="Newest to Oldest" value="New2Old"></option> <%}%>
+    <% if(SortBy.title == 'Old2New') { %> <option selected label="Oldest to Newest" value="Old2New"></option> <% } else { %> <option label="Oldest to Newest" value="Old2New"></option> <%} %>
+    <% if(SortBy.title == 'HighPri') { %> <option selected label="Highest Priority" value="HighPri"></option> <% } else { %> <option label="Highest Priority" value="HighPri"></option> <%} %>
+    <% if(SortBy.title == 'LowPri') { %> <option selected label="Lowest Priority" value="LowPri"></option> <% } else { %> <option label="Lowest Priotiry" value="LowPri"></option> <%} %>
+</select>
+</div>
+
+    <div class="form-item">
+        <label>Type</label>
+        <select name="ideationType" id="ideationType" multiple>
+        <% ideationTypes.forEach(ideationType => { %>
+          <% if (searchOptions.ideationType && searchOptions.ideationType.includes(ideationType.id)) { %>
+            <option selected label="<%= ideationType.title %>" value="<%= ideationType.id %>">
+          <% } else { %>
+            <option label="<%= ideationType.title %>" value="<%= ideationType.id %>">
+          <% } %>
+        <% }) %>
+        </select>
+        <%- include('../../partials/multiselect.ejs', { id: 'ideationType' }) %>
+      </div>
+      <div class="form-item">
+        <label>Need</label>
+        <select name="needs" id="needs" multiple>
+        <% needs.forEach(need => { %>
+          <% if (searchOptions.needs && searchOptions.needs.includes(need.id)) { %>
+            <option selected label="<%= need.statement %>" value="<%= need.id %>">
+          <% } else { %>
+            <option label="<%= need.statement %>" value="<%= need.id %>">
+          <% } %>
+        <% }) %>
+        </select>
+        <%- include('../../partials/multiselect.ejs', { id: 'needs' }) %>
+      </div>
+    </div>
+      <button class="btn btn-primary" type="submit">Search</button>
+</form>
+<br>
+<div>
+  <% ideationSessions.forEach(ideationSession => { %>
+      <a href="/ideationsessions/<%= ideationSession.id %>">
+          <img height="150" width="150" src="<%= ideationSession.coverImagePath %>">
+      </a>
+  <% })  %>
+</div>

@@ -1,0 +1,9 @@
+<%- include('../ideate') %>
+<h2 class="page-header">Edit Ideation Session</h2>
+<form action="/ideationsessions/<%= ideationSession.id %>?_method=PUT" method="POST">
+    <%- include('_form_fields') %>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/ideationsessions">Cancel</a>
+        <button class="btn btn-primary" type="submit">Update</button>
+    </div>
+</form>

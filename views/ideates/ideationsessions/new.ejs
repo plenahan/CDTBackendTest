@@ -1,0 +1,9 @@
+<%- include('../ideate') %>
+<h2 class="page-header">New Ideation Session</h2>
+<form action="/ideationsessions" method="POST">
+    <%- include('_form_fields') %>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/ideationsessions">Cancel</a>
+        <button class="btn btn-primary" type="submit">Create</button>
+    </div>
+</form>

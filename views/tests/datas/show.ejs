@@ -1,0 +1,9 @@
+<%- include('../test') %>
+<h2 class="page-header"><%= data.title %></h2>
+<div>Description: <%= data.description %></div>
+<div>Metric: <%= data.metric %></div>
+<div><a href="/datas/download/<%= data.file._id %>">File: <%= data.file %></a></div>
+<div class="btn-row">
+    <a class="btn btn-primary" href="/datas/<%= data.id %>/edit">Edit</a>
+    <%- include('../../partials/deleteForm', { url: `/datas/${data.id}` }) %>
+</div>

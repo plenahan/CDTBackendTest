@@ -1,13 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const Link = require('../../models/ideate/link')
+const Data = require('../../models/test/data')
 const SortBy = require('../../models/sortby')
-
 
 //All Ideas Route
 router.get('/', async (req, res) => {
     const sortby = new SortBy({ title: req.query.SortBy })
-    let query = Link.find({})
+    let query = Data.find({})
     if (req.query.title != null && req.query.title != '') {
         query = query.regex('title', new RegExp(req.query.title, 'i'))
     }
@@ -33,9 +32,9 @@ router.get('/', async (req, res) => {
     //     query = query.regex('keyword', new RegExp(req.query.keyword, 'i'))
     // }
     try {
-        const links = await query.exec()
-        res.render('ideates/links/index', {
-            links: links,
+        const datas = await query.exec()
+        res.render('tests/datas/index', {
+            datas: datas,
             SortBy: sortby,
             searchOptions: req.query
         })
@@ -46,23 +45,26 @@ router.get('/', async (req, res) => {
 })
 
 //New Ideas Route
-router.get('/new', (req, res) => {
-    res.render('ideates/links/new', { link: new Link() })
+router.get('/new',  async (req, res) => {
+    res.render('tests/datas/new', { data: new Data() })
 })
 
 //Create Idea Route
-router.post('/', async (req, res) => {
-    const link = new Link({
+router.post('/',  async (req, res) => {
+    const uploadedFile = req.file
+    const data = new Data({
         title: req.body.title,
         description: req.body.description,
-        link: req.body.link
+        file: req.body.file,
+        metric: req.body.metric
     })
     try {
-        const newLink = await link.save()
-        res.redirect(`/links/${newLink.id}`)
-    } catch {
-        res.render('ideates/links/new', {
-            link: link,
+        const newData = await data.save()
+        res.redirect(`/datas/${newData.id}`)
+    } catch (err) {
+        console.log(err)
+        res.render('tests/datas/new', {
+            data: data,
             errorMessage: 'Error creating idea'
         })
     }
@@ -70,40 +72,43 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const link = await Link.findById(req.params.id)
+        const data = await Data.findById(req.params.id).exec()
         // const templates = await templates.find({ idea: idea.id})
-        res.render('ideates/links/show', {
-            link: link
+        res.render('tests/datas/show', {
+            data: data
         })
     } catch {
-
+        res.redirect('/')
     }
 })
 
 router.get('/:id/edit', async (req, res) => {
     try {
-        const link = await Link.findById(req.params.id)
-        res.render('ideates/links/edit', { link: link })
+        const data = await Data.findById(req.params.id)
+        res.render('tests/datas/edit', { data: data })
     } catch {
-        res.redirect('/links')
+        res.redirect('/datas')
     }
 })
 
 router.put('/:id', async (req, res) => {
-    let link
+    let data
     try {
-        link = await Link.findById(req.params.id)
-        link.title = req.body.title
-        link.description = req.body.description
-        link.link = req.body.link
-        await link.save()
-        res.redirect(`/links/${link.id}`)
+        data = await Data.findById(req.params.id)
+        data.title = req.body.title
+        data.description = req.body.description
+        if (req.body.file != null && req.body.file !== '') {
+            data.file = req.body.file
+        }
+        data.metric = req.body.metric
+        await data.save()
+        res.redirect(`/datas/${data.id}`)
     } catch {
-        if (link == null) {
+        if (data != null) {
             res.redirect('/')
         } else{
-            res.render('ideates/links/edit', {
-                link: link,
+            res.render('tests/datas/edit', {
+                data: data,
                 errorMessage: 'Error updating idea'
             })
         }
@@ -112,17 +117,17 @@ router.put('/:id', async (req, res) => {
 })
 
 router.delete('/:id', async (req, res) => {
-    let link
+    let data
     try {
-        link = await Link.findById(req.params.id)
-        await link.deleteOne()
-        res.redirect('/links')
+        data = await Data.findById(req.params.id)
+        await data.deleteOne()
+        res.redirect('/datas')
     } 
     catch {
-        if (link == null) {
+        if (data == null) {
             res.redirect('/')
         } else{
-            res.redirect(`/links/${link.id}`)
+            res.redirect(`/datas/${data.id}`)
         }
     }
 })
